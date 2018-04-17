@@ -1,9 +1,9 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
-const Review = db.define('review', {
-    rating: {
-      type: Sequelize.INTEGER,
+const Category = db.define('category', {
+    name: {
+      type: Sequelize.STRING,
       allowNull: false,
     },
     description: {
@@ -12,5 +12,5 @@ const Review = db.define('review', {
     },
   })
   
-  module.exports = Review
+  module.exports = Category
   
