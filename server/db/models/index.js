@@ -13,6 +13,7 @@ const OrderItem = require('./order-item');
 User.hasMany(Address);
 User.hasMandy(Review);
 User.hasMany(Order);
+User.hasOne(Cart);
 
 // ADDRESS ASSOCIATIONS
 Address.belongsTo(User);
