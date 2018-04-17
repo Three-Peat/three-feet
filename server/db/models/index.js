@@ -11,7 +11,7 @@ const OrderItem = require('./order-item');
 
 // USER ASSOCIATIONS
 User.hasMany(Address);
-User.hasMandy(Review);
+User.hasMany(Review);
 User.hasMany(Order);
 User.hasOne(Cart);
 
