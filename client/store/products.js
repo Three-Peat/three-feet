@@ -19,11 +19,11 @@ const getProducts = products => ({type: GET_PRODUCTS, products})
 /**
  * THUNK CREATORS
  */
-export const me = () =>
+export const allProducts = () =>
   dispatch =>
-    axios.get('/auth/me')
+    axios.get('/api/products')
       .then(res =>
-        dispatch(getUser(res.data || defaultUser)))
+        dispatch(getProducts(res.data || defaultProducts)))
       .catch(err => console.log(err))
 
 /**
@@ -32,7 +32,7 @@ export const me = () =>
 export default function (state = defaultProducts, action) {
   switch (action.type) {
     case GET_PRODUCTS:
-      return action.procuts
+      return action.products
     default:
       return state
   }
