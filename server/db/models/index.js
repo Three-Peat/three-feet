@@ -17,6 +17,7 @@ User.hasOne(Cart);
 
 // ADDRESS ASSOCIATIONS
 Address.belongsTo(User);
+Address.belongsTo(Order);
 
 // ORDER ITEM ASSOCIATIONS
 OrderItem.hasOne(Product);
