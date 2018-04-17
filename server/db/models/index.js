@@ -11,7 +11,6 @@ const OrderItem = require('./order-item');
 
 // USER ASSOCIATIONS
 User.hasMany(Address);
-User.hasMany(Review);
 User.hasMany(Order);
 User.hasOne(Cart);
 
@@ -20,7 +19,7 @@ Address.belongsTo(User);
 Address.belongsTo(Order);
 
 // ORDER ITEM ASSOCIATIONS
-OrderItem.hasOne(Product);
+OrderItem.belongsTo(Product);
 OrderItem.belongsTo(Order);
 
 // ORDER ASSOCIATIONS
@@ -34,7 +33,6 @@ Cart.belongsTo(User);
 
 // PRODUCT ASSOCIATIONS
 Product.hasMany(Category);
-Product.hasMany(Review);
 
 // REVIEW ASSOCIATIONS
 Review.hasOne(Product);
