@@ -11,7 +11,7 @@ const data = {
   product: [],
   productCategory: [],
   // review: [],
-  // user: [],
+  user: [],
 }
 
 // for (let i = 0; i < 10; i++) {
@@ -56,7 +56,7 @@ for (let i = 0; i < 10; i++) {
   data.category.push(category)
 }
 
-for (let i = 0; i < 30; i++) {
+for (let i = 0; i < 15; i++) {
   const productCategory = {
     productId: faker.random.number({min: 1, max: 10}),
     categoryId: faker.random.number({min: 1, max: 10}),
@@ -70,11 +70,13 @@ for (let i = 0; i < 30; i++) {
 //   data.review.push(review)
 // }
 
-// for (let i = 0; i < 10; i++) {
-//   const user = {
-//   }
-//   data.user.push(user)
-// }
+for (let i = 0; i < 10; i++) {
+  const user = {
+    email: faker.internet.email(),
+    password: faker.internet.password(),
+  }
+  data.user.push(user)
+}
 
 db.sync({ force: true })
   .then(function () {
@@ -108,10 +110,10 @@ db.sync({ force: true })
       //   return db.model(`review`)
       //     .create(entry)
       // }),
-      // Promise.map(data[`user`], function (entry) {
-      //   return db.model(`user`)
-      //     .create(entry)
-      // })
+      Promise.map(data[`user`], function (entry) {
+        return db.model(`user`)
+          .create(entry)
+      })
     ])
       .then(function () {
         console.log(`Finished inserting data.`)
