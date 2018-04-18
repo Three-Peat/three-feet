@@ -12,8 +12,8 @@ const GET_CATEGORY = 'GET_CATEGORY'
  * INITIAL STATE
  */
 const defaultState = {
-  categories: [],
-  category: {}
+  allCategories: [],
+  selectedCategory: {}
 }
 
 /**
@@ -26,7 +26,7 @@ const getCategory = category => ({ type: GET_CATEGORY, category })
 /**
  * THUNK CREATORS
  */
-export const allCategories = () =>
+export const fetchCategories = () =>
   dispatch =>
     axios.get('/api/categories')
       .then(res =>
@@ -47,11 +47,11 @@ export default function (state = defaultState, action) {
   switch (action.type) {
     case GET_CATEGORIES:
       return {
-        ...state, categories: action.categories
+        ...state, allCategories: action.categories
       }
     case GET_CATEGORY:
       return {
-        ...state, category: action.category
+        ...state, selectedCategory: action.category
       }
     default:
       return state

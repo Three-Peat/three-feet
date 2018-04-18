@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { allCategories } from '../store'
+import { fetchCategories } from '../store'
 import { Link } from 'react-router-dom'
 
 class Categories extends Component {
@@ -11,10 +11,10 @@ class Categories extends Component {
     }
 
     render() {
-        const { categories } = this.props
+        const { allCategories } = this.props.categories
         return (
             <div>
-                {categories.map(category => {
+                {allCategories.map(category => {
                     return (
                         <div key={category.id}>
                             <Link to={`/categories/${category.id}`}>{category.name}</Link>
@@ -34,7 +34,7 @@ const mapState = state => {
 const mapDispatch = dispatch => {
     return {
         getAllCategories: categories => {
-            dispatch(allCategories(categories))
+            dispatch(fetchCategories(categories))
         }
     }
 }
