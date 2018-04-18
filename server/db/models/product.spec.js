@@ -14,7 +14,7 @@ describe('Product model', () => {
     return Product.create({
       name: `running shoe`,
       description: `it's a shoe`,
-      price: 99.99,
+      price: 99,
       inventory: 12,
       brand: `shoe brand`,
       size: 10,
@@ -33,14 +33,12 @@ describe('Product model', () => {
           expect(Object.keys(savedProduct.dataValues)).to.eql(['id', 'name', 'description', 'price', 'inventory', 'brand', 'size', 'color', 'photoUrl', 'updatedAt', 'createdAt']);
           expect(savedProduct.name).to.equal(`running shoe`);
           expect(savedProduct.description).to.equal(`it's a shoe`);
-          expect(savedProduct.price).to.equal(99.99);
+          expect(savedProduct.price).to.equal(99);
           expect(savedProduct.inventory).to.equal(12);
           expect(savedProduct.brand).to.equal(`shoe brand`);
           expect(savedProduct.size).to.equal(10);
           expect(savedProduct.color).to.equal(`blue`);
           expect(savedProduct.photoUrl).to.equal(`http://icons.iconarchive.com/icons/iconsmind/outline/256/Running-Shoes-icon.png`);
-          expect(savedProduct.cartId).to.equal(null);
-          expect(savedProduct.reviewId).to.equal(null);
         });
 
     });

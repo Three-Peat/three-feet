@@ -17,11 +17,11 @@ describe('Cart model', () => {
       })
   })
 
-  it('has no attributes of its own', function () {
+  it('includes `userId`', function () {
 
       return cart.save()
         .then(function (savedCart) {
-          expect(Object.keys(savedCart.dataValues)).to.eql(['id', 'updatedAt', 'createdAt']);
+          expect(Object.keys(savedCart.dataValues)).to.eql(['purchased', 'id', 'updatedAt', 'createdAt', `userId`]);
         });
 
     });

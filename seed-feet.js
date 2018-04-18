@@ -36,8 +36,8 @@ for (let i = 0; i < 10; i++) {
   const product = {
     name: faker.commerce.productName(),
     description: faker.company.bs(),
-    price: faker.commerce.price(),
-    inventory: faker.random.number({min:0, max: 50}),
+    price: faker.random.number({min: 99, max: 50000}),
+    inventory: faker.random.number({min: 0, max: 50}),
     brand: faker.company.companyName(),
     size: faker.random.number({min: 6, max: 15}),
     color: faker.commerce.color(),
@@ -58,8 +58,8 @@ for (let i = 0; i < 10; i++) {
 
 for (let i = 0; i < 30; i++) {
   const productCategory = {
-    productId: faker.random.number({min:1, max: 10}),
-    categoryId: faker.random.number({min:1, max: 10}),
+    productId: faker.random.number({min: 1, max: 10}),
+    categoryId: faker.random.number({min: 1, max: 10}),
   }
   data.productCategory.push(productCategory)
 }
