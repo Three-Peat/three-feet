@@ -17,7 +17,6 @@ User.hasMany(Review);
 
 // ADDRESS ASSOCIATIONS
 Address.belongsTo(User);
-Address.belongsTo(Order);
 
 // ORDER ITEM ASSOCIATIONS
 OrderItem.belongsTo(Product);
@@ -26,7 +25,7 @@ OrderItem.belongsTo(Order);
 // ORDER ASSOCIATIONS
 Order.belongsTo(User);
 Order.hasMany(OrderItem);
-Order.hasOne(Address);
+Order.belongsTo(Address);
 
 // CART ASSOCIATIONS
 Cart.belongsTo(User);

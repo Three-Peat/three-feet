@@ -25,7 +25,7 @@ describe('Review model', () => {
 
       return review.save()
         .then(function (savedReview) {
-          expect(Object.keys(savedReview.dataValues)).to.eql(['id', 'name', 'description', 'rating', 'updatedAt', 'createdAt', 'productId']);
+          expect(Object.keys(savedReview.dataValues)).to.eql(['id', 'name', 'description', 'rating', 'updatedAt', 'createdAt', `userId`, 'productId']);
           expect(savedReview.name).to.equal(`not great`);
           expect(savedReview.description).to.equal(`honestly these shoes are not great`);
           expect(savedReview.rating).to.equal(4);

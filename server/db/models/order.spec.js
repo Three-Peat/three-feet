@@ -17,11 +17,13 @@ describe('Order model', () => {
       })
   })
 
-  it('includes `userId`', function () {
+  it('includes `userId` and `addressId', function () {
 
       return order.save()
         .then(function (savedOrder) {
+          expect(Object.keys(savedOrder.dataValues)).to.eql([`id`, 'updatedAt', 'createdAt', `userId`, `addressId`]);
           expect(savedOrder.userId).to.equal(null);
+          expect(savedOrder.addressId).to.equal(null);
         });
 
     });
