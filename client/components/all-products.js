@@ -25,8 +25,8 @@ export class AllProducts extends Component {
     };
 
     componentDidMount = () => {
-        const { allProducts } = this.props;
-        allProducts();
+        const { getAllProducts } = this.props;
+        getAllProducts();
     };
 
     render() {
