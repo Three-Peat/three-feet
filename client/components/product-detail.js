@@ -17,10 +17,10 @@ class ProductDetail extends Component {
     return (
       <div>
         <img src={photoUrl} alt="shoe" />
-        <p>{name}</p>
-        <p>{price}</p>
-        <p>{brand}</p>
+        <p>{brand + ' ' + name}</p>
+        <p>{'$' + price}</p>
         <p>{description}</p>
+        <button>Add to Cart</button>
       </div>
     );
   }
