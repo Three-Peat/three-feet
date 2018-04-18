@@ -12,6 +12,7 @@ const data = {
   productCategory: [],
   // review: [],
   user: [],
+  cart: [],
 }
 
 // for (let i = 0; i < 10; i++) {
@@ -78,6 +79,13 @@ for (let i = 0; i < 10; i++) {
   data.user.push(user)
 }
 
+for (let i = 0; i < 10; i++) {
+  const cart = {
+    purchased: faker.random.boolean(),
+  }
+  data.cart.push(cart)
+}
+
 db.sync({ force: true })
   .then(function () {
     console.log("Dropped old data, now inserting data.");
@@ -112,6 +120,10 @@ db.sync({ force: true })
       // }),
       Promise.map(data[`user`], function (entry) {
         return db.model(`user`)
+          .create(entry)
+      }),
+      Promise.map(data[`cart`], function (entry) {
+        return db.model(`cart`)
           .create(entry)
       })
     ])
