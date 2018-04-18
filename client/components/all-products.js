@@ -3,31 +3,54 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import SingleProduct from './single-product'
 import { allProducts } from '../store'
+import SearchProducts from './search-products';
+
 
 /**
  * COMPONENT
  */
 export class AllProducts extends Component {
-
-    componentDidMount = () => {
-        const { allProducts } = this.props
-        allProducts()
+    constructor(props) {
+        super(props);
+        this.state = {
+            inputValue: '',
+        };
     }
 
+    handleChange = evt => {
+        const value = evt.target.value;
+        this.setState({
+            inputValue: value,
+        });
+    };
+
+    componentDidMount = () => {
+        const { allProducts } = this.props;
+        allProducts();
+    };
+
     render() {
-        const { products } = this.props
-        console.log(this.props)
+        const { products } = this.props;
+        const inputValue = this.state.inputValue.toLowerCase();
+        const filteredProducts = products.filter(product => {
+            return (
+                product.name.toLowerCase().match(inputValue) ||
+                product.brand.toLowerCase().match(inputValue)
+            );
+        });
         return (
             <div>
-                {products.map(p => <SingleProduct key={p.id} product={p}/>)}
+                <SearchProducts
+                    handleChange={this.handleChange}
+                    inputValue={inputValue}
+                />
+                {filteredProducts.map(p => <SingleProduct key={p.id} product={p} />)}
+
             </div>
-        )
+        );
     }
 }
 
-/**
- * CONTAINER
- */
 const mapState = state => {
     const { products } = state
     return { products }
@@ -35,7 +58,7 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
     return {
-        allProducts: products => {
+        getAllProducts: products => {
             dispatch(allProducts(products))
         }
     }
