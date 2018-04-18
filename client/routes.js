@@ -2,13 +2,9 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter, Route, Switch } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import { Login, Signup, UserHome } from './components'
+import { Login, Signup, UserHome, AllProducts, AllCategories, SingleCategory } from './components'
 import { me } from './store'
-import AllProducts from './components/all-products';
 
-/**
- * COMPONENT
- */
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData()
@@ -23,6 +19,8 @@ class Routes extends Component {
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route path="/products" component={AllProducts} />
+        <Route exact path="/categories" component={AllCategories} />
+        <Route path="/categories/:categoryId" component={SingleCategory} />
           {
           isLoggedIn &&
           <Switch>
