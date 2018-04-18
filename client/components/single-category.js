@@ -12,7 +12,7 @@ class SingleCategory extends Component {
   }
 
   render() {
-    const { category } = this.props
+    const category = this.props.categories.selectedCategory
     return (
       <div>
         <h1>{`${category.name} (${category.products && category.products.length})`}</h1>
@@ -23,8 +23,8 @@ class SingleCategory extends Component {
 }
 
 const mapState = state => {
-  const { category } = state
-  return { category }
+  const { categories } = state
+  return { categories }
 }
 
 const mapDispatch = dispatch => {
