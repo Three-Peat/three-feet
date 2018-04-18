@@ -5,10 +5,11 @@ const faker = require('faker')
 
 const data = {
   // address: [],
-  // category: [],
+  category: [],
   // order: [],
   // orderItem: [],
   product: [],
+  productCategory: [],
   // review: [],
   // user: [],
 }
@@ -22,14 +23,6 @@ const data = {
 //     zip: faker.address.zipCode(),
 //   }
 //   data.address.push(address)
-// }
-
-// for (let i = 0; i < 10; i++) {
-//   const category = {
-//     name: faker.commerce.productMaterial(),
-//     description: faker.company.bs(),
-//   }
-//   data.category.push(category)
 // }
 
 // for (let i = 0; i < 10; i++) {
@@ -53,6 +46,24 @@ for (let i = 0; i < 10; i++) {
   data.product.push(product)
 }
 
+
+for (let i = 0; i < 10; i++) {
+  const category = {
+    name: faker.commerce.productMaterial(),
+    description: faker.company.bs(),
+    productId: faker.random.number({min:1, max: 10})
+  }
+  data.category.push(category)
+}
+
+for (let i = 0; i < 30; i++) {
+  const productCategory = {
+    productId: faker.random.number({min:1, max: 10}),
+    categoryId: faker.random.number({min:1, max: 10}),
+  }
+  data.productCategory.push(productCategory)
+}
+
 // for (let i = 0; i < 10; i++) {
 //   const review = {
 //   }
@@ -73,10 +84,6 @@ db.sync({ force: true })
       //   return db.model(`address`)
       //     .create(entry)
       // }),
-      // Promise.map(data[`category`], function (entry) {
-      //   return db.model(`category`)
-      //     .create(entry)
-      // }),
       // Promise.map(data[`order`], function (entry) {
       //   return db.model(`order`)
       //     .create(entry)
@@ -87,6 +94,14 @@ db.sync({ force: true })
       // }),
       Promise.map(data[`product`], function (entry) {
         return db.model(`product`)
+          .create(entry)
+      }),
+      Promise.map(data[`category`], function (entry) {
+        return db.model(`category`)
+          .create(entry)
+      }),
+      Promise.map(data[`productCategory`], function (entry) {
+        return db.model(`productCategory`)
           .create(entry)
       }),
       // Promise.map(data[`review`], function (entry) {

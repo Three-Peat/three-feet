@@ -4,30 +4,22 @@ import { connect } from 'react-redux'
 import SingleProduct from './single-product'
 import { allProducts } from '../store'
 
-/**
- * COMPONENT
- */
-export class AllProducts extends Component {
-
+class AllProducts extends Component {
     componentDidMount = () => {
-        const { allProducts } = this.props
-        allProducts()
+        const { getAllProducts } = this.props
+        getAllProducts()
     }
 
     render() {
         const { products } = this.props
-        console.log(this.props)
         return (
             <div>
-                {products.map(p => <SingleProduct key={p.id} product={p}/>)}
+                {products.map(product => <SingleProduct key={product.id} product={product} />)}
             </div>
         )
     }
 }
 
-/**
- * CONTAINER
- */
 const mapState = state => {
     const { products } = state
     return { products }
@@ -35,7 +27,7 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
     return {
-        allProducts: products => {
+        getAllProducts: products => {
             dispatch(allProducts(products))
         }
     }
