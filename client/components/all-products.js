@@ -3,20 +3,51 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import SingleProduct from './single-product'
 import { allProducts } from '../store'
+import SearchProducts from './search-products';
 
-class AllProducts extends Component {
-    componentDidMount = () => {
-        const { getAllProducts } = this.props
-        getAllProducts()
+
+/**
+ * COMPONENT
+ */
+export class AllProducts extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            inputValue: '',
+        };
     }
 
+    handleChange = evt => {
+        const value = evt.target.value;
+        this.setState({
+            inputValue: value,
+        });
+    };
+
+    componentDidMount = () => {
+        const { allProducts } = this.props;
+        allProducts();
+    };
+
     render() {
-        const { products } = this.props
+        const { products } = this.props;
+        const inputValue = this.state.inputValue.toLowerCase();
+        const filteredProducts = products.filter(product => {
+            return (
+                product.name.toLowerCase().match(inputValue) ||
+                product.brand.toLowerCase().match(inputValue)
+            );
+        });
         return (
             <div>
-                {products.map(product => <SingleProduct key={product.id} product={product} />)}
+                <SearchProducts
+                    handleChange={this.handleChange}
+                    inputValue={inputValue}
+                />
+                {filteredProducts.map(p => <SingleProduct key={p.id} product={p} />)}
+
             </div>
-        )
+        );
     }
 }
 
