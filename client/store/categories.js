@@ -30,20 +30,20 @@ export const allCategories = () =>
   dispatch =>
     axios.get('/api/categories')
       .then(res =>
-        dispatch(getCategories(res.data || defaultCategories)))
+        dispatch(getCategories(res.data || defaultState)))
       .catch(err => console.log(err))
 
 export const oneCategory = categoryId =>
   dispatch =>
     axios.get(`/api/categories/${categoryId}`)
       .then(res =>
-        dispatch(getCategory(res.data || defaultCategory)))
+        dispatch(getCategory(res.data || defaultState)))
       .catch(err => console.log(err))
 
 /**
  * REDUCER
  */
-export default function (state = defaultCategories, action) {
+export default function (state = defaultState, action) {
   switch (action.type) {
     case GET_CATEGORIES:
       return {
