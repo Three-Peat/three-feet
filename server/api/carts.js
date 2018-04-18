@@ -7,13 +7,12 @@ router.get('/:cartId', (req, res, next) => {
   Cart.findById(id, {
     include: [Product],
   })
-    .then(products => res.json(products))
+    .then(cart => res.json(cart))
     .catch(next);
 });
 
 router.post('/', (req, res, next) => {
-  Cart.findById({
-  })
-    .then(products => res.json(products))
+  Cart.create(req.body)
+    .then(cart => res.json(cart))
     .catch(next);
 });
