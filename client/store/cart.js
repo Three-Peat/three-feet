@@ -29,7 +29,7 @@ export const fetchCart = cartId => dispatch =>
 
 export const oneProduct = id => dispatch =>
   axios
-    .get(`/api/products/${id}`)
+    .get(`/api/carts/${id}`)
     .then(res => dispatch(postCart(res.data || defaultCart)))
     .catch(err => console.error(err));
 
