@@ -5,6 +5,7 @@ import SingleProduct from './single-product'
 import { allProducts } from '../store'
 import SearchProducts from './search-products';
 
+
 /**
  * COMPONENT
  */
@@ -44,14 +45,12 @@ export class AllProducts extends Component {
                     inputValue={inputValue}
                 />
                 {filteredProducts.map(p => <SingleProduct key={p.id} product={p} />)}
+
             </div>
         );
     }
 }
 
-/**
- * CONTAINER
- */
 const mapState = state => {
     const { products } = state
     return { products }
@@ -59,7 +58,7 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
     return {
-        allProducts: products => {
+        getAllProducts: products => {
             dispatch(allProducts(products))
         }
     }

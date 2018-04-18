@@ -32,7 +32,8 @@ Cart.hasMany(Product);
 Cart.belongsTo(User);
 
 // PRODUCT ASSOCIATIONS
-Product.hasMany(Category);
+Product.belongsToMany(Category, {through: 'productCategory'});
+Category.belongsToMany(Product, {through: 'productCategory'});
 
 // REVIEW ASSOCIATIONS
 Review.hasOne(Product);
