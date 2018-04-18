@@ -1,19 +1,24 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { oneProduct } from '../store/products';
+import { fetchProduct } from '../store/products';
 
 /**
  * COMPONENT
  */
 class ProductDetail extends Component {
   componentDidMount() {
-    const id = this.props.match.params.id;
+    const id = this.props.match.params.productId;
     this.props.oneProduct(id);
   }
 
   render() {
-    const { photoUrl, name, price, brand, description } = this.props.products;
-    console.log('the state>>>>', this.props.products);
+    const {
+      photoUrl,
+      name,
+      price,
+      brand,
+      description,
+    } = this.props.products.selectedProduct;
     return (
       <div>
         <img src={photoUrl} alt="shoe" />
@@ -31,7 +36,7 @@ const mapState = state => ({
 });
 
 const mapDispatch = dispatch => ({
-  oneProduct: id => dispatch(oneProduct(id)),
+  oneProduct: id => dispatch(fetchProduct(id)),
 });
 
 export default connect(mapState, mapDispatch)(ProductDetail);

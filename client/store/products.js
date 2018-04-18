@@ -10,7 +10,10 @@ const GET_PRODUCT = 'GET_PRODUCT';
 /**
  * INITIAL STATE
  */
-const defaultProducts = [];
+const defaultState = {
+  allProducts: [],
+  selectedProduct: {},
+};
 
 /**
  * ACTION CREATORS
@@ -21,27 +24,33 @@ const getProduct = product => ({ type: GET_PRODUCT, product });
 /**
  * THUNK CREATORS
  */
-export const allProducts = () => dispatch =>
+export const fetchProducts = () => dispatch =>
   axios
     .get('/api/products')
-    .then(res => dispatch(getProducts(res.data || defaultProducts)))
+    .then(res => dispatch(getProducts(res.data || defaultState)))
     .catch(err => console.log(err));
 
-export const oneProduct = id => dispatch =>
+export const fetchProduct = id => dispatch =>
   axios
     .get(`/api/products/${id}`)
-    .then(res => dispatch(getProduct(res.data || defaultProducts)))
+    .then(res => dispatch(getProduct(res.data || defaultState)))
     .catch(err => console.error(err));
 
 /**
  * REDUCER
  */
-export default function(state = defaultProducts, action) {
+export default function(state = defaultState, action) {
   switch (action.type) {
     case GET_PRODUCTS:
-      return action.products;
+      return {
+        ...state,
+        allProducts: action.products,
+      };
     case GET_PRODUCT:
-      return action.product;
+      return {
+        ...state,
+        selectedProduct: action.product,
+      };
     default:
       return state;
   }
