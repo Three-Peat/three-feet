@@ -10,13 +10,15 @@ const POST_CART = 'POST_CART';
 /**
  * INITIAL STATE
  */
-const defaultCart = [];
+const defaultState = {
+  product: []
+}
 
 /**
  * ACTION CREATORS
  */
-const getCart = cart => ({ type: GET_CART, cart });
-const postCart = cart => ({ type: POST_CART, cart });
+const get = cart => ({ type: GET_CART, cart });
+const create = cart => ({ type: POST_CART, cart });
 
 /**
  * THUNK CREATORS
@@ -24,24 +26,26 @@ const postCart = cart => ({ type: POST_CART, cart });
 export const fetchCart = cartId => dispatch =>
   axios
     .get(`/api/carts/${cartId}`)
-    .then(res => dispatch(getCart(res.data || defaultCart)))
+    .then(res => dispatch(get(res.data || defaultState)))
     .catch(err => console.log(err));
 
-export const oneProduct = id => dispatch =>
+export const postCart = cart => dispatch =>
   axios
-    .get(`/api/carts/${id}`)
-    .then(res => dispatch(postCart(res.data || defaultCart)))
+    .post(`/api/carts/`, cart)
+    .then(res => dispatch(create(res.data || defaultState)))
     .catch(err => console.error(err));
 
 /**
  * REDUCER
  */
-export default function(state = defaultCart, action) {
+export default function(state = defaultState, action) {
   switch (action.type) {
-    case GET_PRODUCTS:
-      return action.products;
-    case GET_PRODUCT:
-      return action.product;
+    case GET_CART:
+      return {
+        ...state, product: action.product
+      }
+    case POST_CART:
+      return action.cart;
     default:
       return state;
   }
