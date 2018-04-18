@@ -1,10 +1,17 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { withRouter, Route, Switch } from 'react-router-dom'
-import PropTypes from 'prop-types'
-import { Login, Signup, UserHome, AllProducts, AllCategories, SingleCategory } from './components'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { withRouter, Route, Switch } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import {
+  Login,
+  Signup,
+  UserHome,
+  AllProducts,
+  AllCategories,
+  SingleCategory,
+} from './components';
 import ProductDetail from './components/product-detail';
-import { me } from './store'
+import { me } from './store';
 
 class Routes extends Component {
   componentDidMount() {
@@ -20,14 +27,15 @@ class Routes extends Component {
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route exact path="/products" component={AllProducts} />
-        <Route path="/products/:id" component={ProductDetail} />
+        <Route path="/products/:productId" component={ProductDetail} />
         <Route exact path="/categories" component={AllCategories} />
         <Route path="/categories/:categoryId" component={SingleCategory} />
-        {isLoggedIn &&
+        {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route path="/home" component={UserHome} />
-          </Switch>}
+          </Switch>
+        )}
         {/* Displays our Login component as a fallback */}
         <Route component={Login} />
       </Switch>

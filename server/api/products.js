@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Product } = require('../db/models');
+const { Product, Review } = require('../db/models');
 module.exports = router;
 
 router.get('/', (req, res, next) => {
@@ -8,8 +8,12 @@ router.get('/', (req, res, next) => {
     .catch(next);
 });
 
-router.get('/:id', (req, res, next) => {
-  Product.findById(req.params.id)
+router.get('/:productId', (req, res, next) => {
+  Product.findById(req.params.productId, {
+    include: {
+      model: Review,
+    },
+  })
     .then(product => res.json(product))
     .catch(next);
 });

@@ -13,6 +13,7 @@ const OrderItem = require('./order-item');
 User.hasMany(Address);
 User.hasMany(Order);
 User.hasOne(Cart);
+User.hasMany(Review);
 
 // ADDRESS ASSOCIATIONS
 Address.belongsTo(User);
@@ -28,16 +29,14 @@ Order.hasMany(OrderItem);
 Order.hasOne(Address);
 
 // CART ASSOCIATIONS
-Cart.hasMany(Product);
 Cart.belongsTo(User);
 
 // PRODUCT ASSOCIATIONS
-Product.belongsToMany(Category, {through: 'productCategory'});
-Category.belongsToMany(Product, {through: 'productCategory'});
-
-// REVIEW ASSOCIATIONS
-Review.hasOne(Product);
-Review.hasOne(User);
+Product.belongsToMany(Cart, { through: 'productCart' });
+Cart.belongsToMany(Product, { through: 'productCart' });
+Product.belongsToMany(Category, { through: 'productCategory' });
+Category.belongsToMany(Product, { through: 'productCategory' });
+Product.hasMany(Review);
 
 module.exports = {
   User,
