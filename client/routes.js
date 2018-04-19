@@ -9,9 +9,10 @@ import {
   AllProducts,
   AllCategories,
   SingleCategory,
+
   ProductDetail
 } from './components';
-import { me, fetchProducts, fetchCategories, fetchUsers } from './store';
+import { me, fetchCart, fetchProducts, fetchCategories, fetchUsers } from './store';
 
 class Routes extends Component {
   componentDidMount() {
@@ -30,6 +31,7 @@ class Routes extends Component {
         <Route path="/products/:productId" component={ProductDetail} />
         <Route exact path="/categories" component={AllCategories} />
         <Route path="/categories/:categoryId" component={SingleCategory} />
+        <Route path="/cart" component={Cart} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
@@ -58,6 +60,7 @@ const mapDispatch = dispatch => {
   return {
     loadInitialData() {
       dispatch(me());
+      dispatch(fetchCart())
       dispatch(fetchProducts());
       dispatch(fetchCategories());
       dispatch(fetchUsers());

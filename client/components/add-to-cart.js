@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
+import { addToCart } from '../store';
+import { connect } from 'react-redux';
 
 class AddToCart extends Component {
   handleAddToCart = () => {
     console.log(this.props);
-    // const addedProduct = this.props.products.selectedProduct;
-    // this.setState({ cart: [...this.state.cart, addedProduct] });
+    const { addProductToCart } = this.props
+
+    const selected = this.props.product;
+    addProductToCart(selected)
   };
 
   render() {
@@ -18,4 +22,18 @@ class AddToCart extends Component {
   }
 }
 
-export default AddToCart;
+// export default AddToCart;
+const mapState = state => {
+  const { cart } = state
+  return { cart }
+}
+
+const mapDispatch = dispatch => {
+  return {
+      addProductToCart: product => {
+          dispatch(addToCart(product))
+      }
+  }
+}
+
+export default connect(mapState, mapDispatch)(AddToCart)

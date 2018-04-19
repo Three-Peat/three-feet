@@ -127,7 +127,7 @@ db.sync({ force: true })
       Promise.map(data.user, function (entry) {
         return db.model(`user`)
           .create(entry)
-      }),
+      })
     ])
       .then(() => {
         return Promise.all([
