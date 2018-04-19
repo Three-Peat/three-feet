@@ -9,7 +9,7 @@ import {
   AllProducts,
   AllCategories,
   SingleCategory,
-
+  Cart,
   ProductDetail
 } from './components';
 import { me, fetchCart, fetchProducts, fetchCategories, fetchUsers } from './store';
