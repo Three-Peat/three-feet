@@ -1,5 +1,6 @@
 import React from 'react';
 import AddToCart from './add-to-cart';
+import { Link } from 'react-router-dom'
 // import PropTypes from 'prop-types';
 // import { connect } from 'react-redux';
 
@@ -10,9 +11,9 @@ const SingleProduct = props => {
   const { photoUrl, name, price, brand } = props.product;
   return (
     <div>
-      <a href={`/products/${props.product.id}`}>
+      <Link to={`/products/${props.product.id}`}>
         <img src={photoUrl} alt="shoe" />
-      </a>
+      </Link>
       <p>{name}</p>
       <p>{price}</p>
       <p>{brand}</p>

@@ -8,6 +8,12 @@ router.get('/', (req, res, next) => {
     .catch(next)
 })
 
+router.post('/', (req, res, next) => {
+  Review.create(req.body)
+    .then(reviews => res.json(reviews))
+    .catch(next)
+})
+
 router.get('/:productId', (req, res, next) => {
   const { productId } = req.params
   Review.findAll({

@@ -38,7 +38,7 @@ export class ProductDetail extends Component {
       <div>
         <img src={photoUrl} alt="shoe" />
         <p>{brand + ' ' + name}</p>
-        <p>{'$' + price}</p>
+        <p>{'$' + price / 100}</p>
         <p>{description}</p>
         <AddToCart product={this.props.products.selectedProduct} />
         <Reviews reviews={reviews} />
