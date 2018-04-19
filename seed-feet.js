@@ -33,7 +33,7 @@ const data = {
 //   data.orderItem.push(orderItem)
 // }
 
-for (let i = 0; i < 10; i++) {
+for (let i = 0; i < 20; i++) {
   const product = {
     name: faker.commerce.productName(),
     description: faker.company.bs(),
@@ -52,15 +52,14 @@ for (let i = 0; i < 10; i++) {
   const category = {
     name: faker.commerce.productMaterial(),
     description: faker.company.bs(),
-    productId: faker.random.number({ min: 1, max: 10 })
   }
   data.category.push(category)
 }
 
 const checker = []
-for (let i = 0; i < 50; i++) {
+for (let i = 0; i < 80; i++) {
   const productCategory = {
-    productId: faker.random.number({ min: 1, max: 10 }),
+    productId: faker.random.number({ min: 1, max: 20 }),
     categoryId: faker.random.number({ min: 1, max: 10 }),
   }
   const stringId = `${productCategory.productId}${productCategory.categoryId}`
@@ -70,11 +69,16 @@ for (let i = 0; i < 50; i++) {
   }
 }
 
-// for (let i = 0; i < 10; i++) {
-//   const review = {
-//   }
-//   data.review.push(review)
-// }
+for (let i = 0; i < 30; i++) {
+  const review = {
+    rating: faker.random.number({ min: 1, max: 5 }),
+    name: faker.company.catchPhraseDescriptor(),
+    description: faker.lorem.paragraph(3),
+    userId: faker.random.number({ min: 1, max: 10 }),
+    productId: faker.random.number({ min: 1, max: 20 }),
+  }
+  data.review.push(review)
+}
 
 for (let i = 0; i < 10; i++) {
   const user = {
@@ -96,19 +100,15 @@ db.sync({ force: true })
   .then(function () {
     console.log("Dropped old data, now inserting data.");
     return Promise.all([
-      Promise.map(data.user, function (entry) {
-        return db.model(`user`)
-          .create(entry)
-      }),
-      // Promise.map(data.address`], function (entry) {
+      // Promise.map(data.address, function (entry) {
       //   return db.model(`address`)
       //     .create(entry)
       // }),
-      // Promise.map(data.order`], function (entry) {
+      // Promise.map(data.order, function (entry) {
       //   return db.model(`order`)
       //     .create(entry)
       // }),
-      // Promise.map(data.orderentry`], function (entry) {
+      // Promise.map(data.orderentry, function (entry) {
       //   return db.model(`orderentry`)
       //     .create(entry)
       // }),
@@ -124,21 +124,22 @@ db.sync({ force: true })
         return db.model(`productCategory`)
           .create(entry)
       }),
-      // Promise.map(data.review, function (entry) {
-      //   return db.model(`review`)
-      //     .create(entry)
-      // }),
-      Promise.map(data[`cart`], function (entry) {
-        return db.model(`cart`)
+      Promise.map(data.user, function (entry) {
+        return db.model(`user`)
           .create(entry)
       })
     ])
       .then(() => {
-        console.log('CARTS')
-        return Promise.map(data.cart, function (entry) {
-          return db.model(`cart`)
-            .create(entry)
-        })
+        return Promise.all([
+          Promise.map(data.cart, function (entry) {
+            return db.model(`cart`)
+              .create(entry)
+          }),
+          Promise.map(data.review, function (entry) {
+            return db.model(`review`)
+              .create(entry)
+          }),
+        ])
       })
       .then(function () {
         console.log(`Finished inserting data.`)

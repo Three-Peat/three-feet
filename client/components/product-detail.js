@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchProduct } from '../store/products';
 import AddToCart from './add-to-cart';
+import Reviews from './reviews';
 
 /**
  * COMPONENT
@@ -26,6 +27,7 @@ export class ProductDetail extends Component {
 
   render() {
     const {
+      reviews,
       photoUrl,
       name,
       price,
@@ -39,9 +41,10 @@ export class ProductDetail extends Component {
         <p>{'$' + price}</p>
         <p>{description}</p>
         <AddToCart product={this.props.products.selectedProduct} />
-      </div>
-    );
-  }
+        <Reviews reviews={reviews} />
+        </div>
+      );
+    }
 }
 
 const mapState = state => ({

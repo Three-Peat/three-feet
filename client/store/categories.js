@@ -33,7 +33,7 @@ export const fetchCategories = () =>
         dispatch(getCategories(res.data || defaultState)))
       .catch(err => console.log(err))
 
-export const oneCategory = categoryId =>
+export const fetchCategory = categoryId =>
   dispatch =>
     axios.get(`/api/categories/${categoryId}`)
       .then(res =>
