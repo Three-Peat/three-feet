@@ -29,19 +29,22 @@ describe('ProductDetail', () => {
     );
   });
 
-  it('renders the brand in a p tag', () => {
-    expect(productDetail.brand.to.equal('Nike'));
+  it('has three p tags', () => {
+    expect(productDetail.find('p')).to.have.length(3);
+  });
+  it('first p tag has brand and shoe name', () => {
+    expect(
+      productDetail
+        .find('p')
+        .at(0)
+        .text()
+    ).to.be.equal('Nike Epic Runner');
+  });
+  it('has correct image source', () => {
+    expect(sampleProduct.photoUrl).to.equal('www.purpleShoe.com');
   });
   it('has photoUrl, name, price, brand, and description in an instance', () => {
-    expect(
-      console.log(sampleProduct)
-      // Object.keys(sampleProduct).to.equal([
-      //   'photoUrl',
-      //   'name',
-      //   'price',
-      //   'brand',
-      //   'description',
-      // ])
-    );
+    expect(sampleProduct.price).to.equal(10000);
+    expect(Object.keys(sampleProduct)).to.have.length(5);
   });
 });
