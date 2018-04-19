@@ -87,6 +87,7 @@ for (let i = 0; i < 10; i++) {
 for (let i = 0; i < 10; i++) {
   const cart = {
     purchased: faker.random.boolean(),
+    userId: i + 1
   }
   data.cart.push(cart)
 }
@@ -127,11 +128,14 @@ db.sync({ force: true })
         return db.model(`user`)
           .create(entry)
       }),
-      Promise.map(data[`cart`], function (entry) {
-        return db.model(`cart`)
-          .create(entry)
-      })
     ])
+      .then(() => {
+        console.log('CARTS')
+        return Promise.map(data.cart, function (entry) {
+          return db.model(`cart`)
+            .create(entry)
+        })
+      })
       .then(function () {
         console.log(`Finished inserting data.`)
         process.exit();
