@@ -21,7 +21,7 @@ const defaultState = {
 
 const get = cart => ({ type: GET_CART, cart });
 const create = cart => ({ type: POST_CART, cart });
-const addToCart = product => ({ type: POST_CART, product });
+const add = product => ({ type: ADD_TO_CART, product });
 
 /**
  * THUNK CREATORS
@@ -38,6 +38,12 @@ export const postCart = cart => dispatch =>
     .then(res => dispatch(create(res.data || defaultState)))
     .catch(err => console.error(err));
 
+export const addToCart = (product, cartId) => dispatch =>
+  axios
+    .post(`/api/carts/${cartId}`, product)
+    .then(res => dispatch(add(res.data || defaultState)))
+    .catch(err => console.error(err));
+
 /**
  * REDUCER
  */
@@ -51,8 +57,13 @@ export default function(state = defaultState, action) {
     case POST_CART:
       return {
         ...state,
-        products: action.product,
+        products: action.cart,
       };
+      case ADD_TO_CART:
+      return {
+        ...state,
+        products: action.product
+      }
     default:
       return state;
   }
