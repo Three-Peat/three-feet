@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Cart, Product } = require('../db/models');
+const { Cart } = require('../db/models');
 module.exports = router;
 
 router.get('/', (req, res, next) => {
@@ -20,7 +20,12 @@ router.post('/:cartId', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
-  Cart.create(req.body)
+  const userId = req.user.id;
+  Cart.create({
+    where: {
+      userId,
+    },
+  })
     .then(cart => res.json(cart))
     .catch(next);
 });

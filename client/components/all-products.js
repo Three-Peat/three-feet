@@ -25,8 +25,9 @@ export class AllProducts extends Component {
   };
 
   componentDidMount = () => {
-    const { getAllProducts } = this.props;
+    const { getAllProducts, getCart } = this.props;
     getAllProducts();
+    getCart();
   };
 
   render() {
@@ -40,6 +41,7 @@ export class AllProducts extends Component {
     });
     return (
       <div>
+        <Cart />
         <SearchProducts
           handleChange={this.handleChange}
           inputValue={inputValue}
@@ -51,14 +53,17 @@ export class AllProducts extends Component {
 }
 
 const mapState = state => {
-  const { products } = state;
-  return { products };
+  const { products, cart } = state;
+  return { products, cart };
 };
 
 const mapDispatch = dispatch => {
   return {
     getAllProducts: products => {
       dispatch(fetchProducts(products));
+    },
+    getCart: cart => {
+      dispatch(fetchCart(cart));
     },
   };
 };
