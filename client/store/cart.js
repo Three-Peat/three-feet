@@ -26,7 +26,7 @@ const addToCart = product => ({ type: POST_CART, product });
 /**
  * THUNK CREATORS
  */
-export const fetchCart = cartId => dispatch =>
+export const fetchCart = () => dispatch =>
   axios
     .get(`/api/carts/`)
     .then(res => dispatch(get(res.data || defaultState)))

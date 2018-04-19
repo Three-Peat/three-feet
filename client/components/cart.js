@@ -4,15 +4,13 @@ import { fetchCart } from '../store';
 
 export class Cart extends Component {
 
-  constructor(){
-    super()
-    this.state = {
-      products: []
-    }
-  }
+  componentDidMount = () => {
+    // const { getCart } = this.props
+    console.log(this.props)
+    // getCart()
+  };
 
   render() {
-    console.log(this.props)
     return (
       <div>
         <p>My Cart</p>

@@ -27,7 +27,7 @@ export class AllProducts extends Component {
   componentDidMount = () => {
     const { getAllProducts, getCart } = this.props;
     getAllProducts();
-    getCart();
+    // getCart();
   };
 
   render() {
@@ -53,8 +53,8 @@ export class AllProducts extends Component {
 }
 
 const mapState = state => {
-  const { products, cart } = state;
-  return { products, cart };
+  const { products } = state;
+  return { products };
 };
 
 const mapDispatch = dispatch => {
@@ -62,9 +62,9 @@ const mapDispatch = dispatch => {
     getAllProducts: products => {
       dispatch(fetchProducts(products));
     },
-    getCart: cart => {
-      dispatch(fetchCart(cart));
-    },
+    // getCart: cart => {
+    //   dispatch(fetchCart(cart));
+    // },
   };
 };
 
