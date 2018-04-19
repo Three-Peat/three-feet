@@ -1,18 +1,25 @@
 const router = require('express').Router();
-const { Cart, Product } = require('../db/models');
+const { Cart } = require('../db/models');
 module.exports = router;
 
-router.get('/:cartId', (req, res, next) => {
-  const id = req.params.cartId;
-  Cart.findById(id, {
-    include: [Product],
+router.get('/', (req, res, next) => {
+  const userId = req.user.id;
+  Cart.findAll({
+    where: {
+      userId,
+    },
   })
     .then(cart => res.json(cart))
     .catch(next);
 });
 
 router.post('/', (req, res, next) => {
-  Cart.create(req.body)
+  const userId = req.user.id;
+  Cart.create({
+    where: {
+      userId,
+    },
+  })
     .then(cart => res.json(cart))
     .catch(next);
 });

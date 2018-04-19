@@ -95,6 +95,10 @@ db.sync({ force: true })
   .then(function () {
     console.log("Dropped old data, now inserting data.");
     return Promise.all([
+      Promise.map(data.user, function (entry) {
+        return db.model(`user`)
+          .create(entry)
+      }),
       // Promise.map(data.address`], function (entry) {
       //   return db.model(`address`)
       //     .create(entry)
@@ -123,10 +127,6 @@ db.sync({ force: true })
       //   return db.model(`review`)
       //     .create(entry)
       // }),
-      Promise.map(data.user, function (entry) {
-        return db.model(`user`)
-          .create(entry)
-      }),
       Promise.map(data[`cart`], function (entry) {
         return db.model(`cart`)
           .create(entry)
