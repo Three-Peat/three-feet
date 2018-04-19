@@ -6,7 +6,7 @@ import AddToCart from './add-to-cart';
 /**
  * COMPONENT
  */
-class ProductDetail extends Component {
+export class ProductDetail extends Component {
   constructor() {
     super();
     this.state = {
