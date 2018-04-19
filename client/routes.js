@@ -9,9 +9,9 @@ import {
   AllProducts,
   AllCategories,
   SingleCategory,
+  ProductDetail
 } from './components';
-import ProductDetail from './components/product-detail';
-import { me } from './store';
+import { me, fetchProducts, fetchCategories, fetchUsers } from './store';
 
 class Routes extends Component {
   componentDidMount() {
@@ -58,6 +58,9 @@ const mapDispatch = dispatch => {
   return {
     loadInitialData() {
       dispatch(me());
+      dispatch(fetchProducts());
+      dispatch(fetchCategories());
+      dispatch(fetchUsers());
     },
   };
 };

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import SingleProduct from './single-product';
-import { oneCategory } from '../store'
+import { fetchCategory } from '../store'
 
 class SingleCategory extends Component {
   componentDidMount = () => {
@@ -30,7 +30,7 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     getOneCategory: categoryId => {
-      dispatch(oneCategory(categoryId))
+      dispatch(fetchCategory(categoryId))
     }
   }
 }
