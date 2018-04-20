@@ -6,8 +6,9 @@ class AddToCart extends Component {
   handleAddToCart = () => {
     const { addProductToCart, cart } = this.props
     const selectedId = this.props.product.id;
+    const cartId = cart[0].id
 
-    addProductToCart({productId: selectedId, cartId: cart[0].id})
+    addProductToCart({productId: selectedId, cartId: cartId})
   };
 
   render() {

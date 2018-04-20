@@ -10,7 +10,7 @@ router.get('/', (req, res, next) => {
   // console.log(req.user)
   if (req.user) {
     const userId = req.user.id;
-    Cart.find({
+    Cart.findOrCreate({
       where: {
         userId,
       },
