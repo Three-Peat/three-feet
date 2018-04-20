@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchProduct } from '../store/products';
 import AddToCart from './add-to-cart';
-import Reviews from './reviews';
+import Reviews from './product-reviews';
+import AddToCategory from './add-to-category';
 
 /**
  * COMPONENT
@@ -21,11 +22,12 @@ export class ProductDetail extends Component {
   };
 
   componentDidMount() {
-    const id = this.props.match.params.productId;
-    this.props.oneProduct(id);
+    const { productId } = this.props.match.params;
+    this.props.oneProduct(productId);
   }
 
   render() {
+    const { productId } = this.props.match.params
     const {
       reviews,
       photoUrl,
@@ -41,10 +43,11 @@ export class ProductDetail extends Component {
         <p>{'$' + price / 100}</p>
         <p>{description}</p>
         <AddToCart product={this.props.products.selectedProduct} />
+        <AddToCategory productId={productId} />
         <Reviews reviews={reviews} />
-        </div>
-      );
-    }
+      </div>
+    );
+  }
 }
 
 const mapState = state => ({

@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import axios from 'axios'
 import { fetchProduct } from '../store'
 
-class Reviews extends Component {
+class ProductReviews extends Component {
     constructor() {
         super()
 
@@ -20,7 +20,6 @@ class Reviews extends Component {
         const userId = this.props.user.id
         const productId = this.props.products.selectedProduct.id
         const { getProductReviews } = this.props
-        console.log(getProductReviews)
         axios.post('/api/reviews', { ...this.state, userId, productId })
             .then(() => getProductReviews(productId))
     }
@@ -32,7 +31,7 @@ class Reviews extends Component {
     }
 
     render() {
-        const { reviews, users } = this.props
+        let { reviews, users } = this.props
         let rating = 0
         const calcRating = productReviews => {
             productReviews.forEach(review => {
@@ -42,6 +41,7 @@ class Reviews extends Component {
             return rating
         }
         reviews && (rating = calcRating(reviews))
+        reviews && (reviews = reviews.slice(0).reverse())
         return (
             <div style={{ border: `3px solid black`, margin: `10px` }}>
                 Write a review!
@@ -84,13 +84,12 @@ const mapState = state => ({
 
 const mapDispatch = dispatch => ({
     getProductReviews: productId => {
-        console.log(`fetching product reviews`)
         dispatch(fetchProduct(productId))
     }
 });
 
 
-export default connect(mapState, mapDispatch)(Reviews);
+export default connect(mapState, mapDispatch)(ProductReviews);
 
         /**
          * PROP TYPES

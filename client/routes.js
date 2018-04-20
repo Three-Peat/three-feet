@@ -10,7 +10,8 @@ import {
   AllCategories,
   SingleCategory,
   Cart,
-  ProductDetail
+  ProductDetail,
+  AllReviews
 } from './components';
 import { me, fetchCart, fetchProducts, fetchCategories, fetchUsers } from './store';
 
@@ -32,6 +33,7 @@ class Routes extends Component {
         <Route exact path="/categories" component={AllCategories} />
         <Route path="/categories/:categoryId" component={SingleCategory} />
         <Route path="/cart" component={Cart} />
+        <Route path="/reviews" component={AllReviews} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}

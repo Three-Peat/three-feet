@@ -6,52 +6,41 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { get } from 'https';
 
-class Categories extends Component {
+class AddToCategory extends Component {
     constructor() {
         super()
 
         this.state = {
-            name: '',
-            description: '',
+            categoryId: 1,
         }
-    }
-
-    componentDidMount = () => {
-        const { getAllCategories } = this.props
-        getAllCategories()
     }
 
     handleSubmit = event => {
         event.preventDefault()
         const { getAllCategories } = this.props
-        const {name, description} = this.state
-        axios.post('/api/categories', { name, description })
+        const { categoryId } = this.state
+        const { productId } = this.props
+        console.log(productId, categoryId)
+        axios.post(`/api/categories/${categoryId}/products/${productId}`, { productId, categoryId })
             .then(() => getAllCategories())
     }
 
     handleChange = event => {
         let { name, value } = event.target
-        value = name === `rating` ? +value : value
-        this.setState({ [name]: value })
+        this.setState({ [name]: +value })
     }
 
     render() {
         const { allCategories } = this.props.categories
         return (
             <div>
-                Create a new category!
-                <form name="review-form" onSubmit={this.handleSubmit}>
-                    Name: <input type="text" name="name" onChange={this.handleChange} /><br />
-                    Description: <input type="text" name="description" onChange={this.handleChange} /><br />
+                Add shoe to a category!
+                <form name="category-form" onChange={this.handleChange} onSubmit={this.handleSubmit}>
+                    Category: <select name="categoryId">
+                        {allCategories.map(category => <option key={category.id} value={category.id}>{category.name}</option>)}
+                    </select>
                     <input type="submit" value="Submit" />
                 </form>
-                {allCategories.map(category => {
-                    return (
-                        <div key={category.id}>
-                            <Link to={`/categories/${category.id}`}>{category.name} - {category.description}</Link>
-                        </div>
-                    )
-                })}
             </div>
         )
     }
@@ -70,7 +59,7 @@ const mapDispatch = dispatch => {
     }
 }
 
-export default connect(mapState, mapDispatch)(Categories)
+export default connect(mapState, mapDispatch)(AddToCategory)
 
 /**
  * PROP TYPES

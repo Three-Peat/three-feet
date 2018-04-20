@@ -7,7 +7,6 @@ import history from '../history'
 const GET_CATEGORIES = 'GET_CATEGORIES'
 const GET_CATEGORY = 'GET_CATEGORY'
 
-
 /**
  * INITIAL STATE
  */
