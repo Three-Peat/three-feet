@@ -12,7 +12,7 @@ describe('OrderItem model', () => {
   let orderItem;
   beforeEach(() => {
     return OrderItem.create({
-      price: 99.99,
+      price: 100,
     }).then(entry => {
       orderItem = entry;
     });
@@ -20,7 +20,7 @@ describe('OrderItem model', () => {
 
   it('includes `price`', function() {
     return orderItem.save().then(function(savedOrderItem) {
-      expect(savedOrderItem.price).to.equal(99.99);
+      expect(savedOrderItem.price).to.equal(100);
     });
   });
 });

@@ -19,7 +19,7 @@ const Address = db.define('address', {
     allowNull: false,
   },
   zip: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.STRING,
     allowNull: false,
   },
 });
