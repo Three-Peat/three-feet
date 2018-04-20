@@ -13,7 +13,7 @@ export class Cart extends Component {
     return (
       <div>
         <p>My Cart</p>
-        {cart ? cart.products.map(product => {
+        {cart.products && cart.products.map(product => {
           return (
             <div key={product.id}>
               <img src={product.photoUrl} alt="shoe" />
@@ -22,7 +22,7 @@ export class Cart extends Component {
               <p>{product.brand}</p>
             </div>
           );
-        }) : null}
+        })}
       </div>
     );
   }
