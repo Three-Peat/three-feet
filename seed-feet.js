@@ -52,7 +52,7 @@ for (let i = 0; i < 20; i++) {
     brand: faker.company.companyName(),
     size: faker.random.number({ min: 6, max: 15 }),
     color: faker.commerce.color(),
-    photoUrl: `shoe-icon.png`,
+    photoUrl: `/shoe-icon.png`,
   };
   data.product.push(product);
 }
