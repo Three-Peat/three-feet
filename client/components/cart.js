@@ -1,15 +1,27 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { fetchCart } from '../store';
 
 export class Cart extends Component {
+  componentDidMount = () => {
+    const { getCart } = this.props;
+    getCart();
+  };
+
   render() {
-    const { cart } = this.props
-    // right now this is a cart id, not product ID
+    const { cart } = this.props;
     return (
       <div>
         <p>My Cart</p>
-        {cart.map(product => {
-          return <p key={product.id}>{product.id}</p>
+        {cart.products && cart.products.map(product => {
+          return (
+            <div key={product.id}>
+              <img src={product.photoUrl} alt="shoe" />
+              <p>{product.name}</p>
+              <p>{product.price}</p>
+              <p>{product.brand}</p>
+            </div>
+          );
         })}
       </div>
     );
@@ -22,6 +34,9 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
+    getCart: cart => {
+      dispatch(fetchCart(cart));
+    },
     // Going to need this eventually
     // removeFromCart: product => {
     //   dispatch(removeFromCart(product));

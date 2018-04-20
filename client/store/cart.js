@@ -32,7 +32,7 @@ export const fetchCart = () => dispatch =>
 
 export const addToCart = (product) => dispatch =>
   axios
-    .post(`/api/carts/`, product)
+    .put(`/api/carts/`, product)
     .then(res => dispatch(add(res.data || defaultState)))
     .catch(err => console.error(err));
 
