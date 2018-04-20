@@ -4,9 +4,10 @@ import { connect } from 'react-redux';
 
 class AddToCart extends Component {
   handleAddToCart = () => {
-    const { addProductToCart } = this.props
+    const { addProductToCart, cart } = this.props
     const selectedId = this.props.product.id;
-    addProductToCart(selectedId)
+
+    addProductToCart({productId: selectedId, cartId: cart[0].id})
   };
 
   render() {
