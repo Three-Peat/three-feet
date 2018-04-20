@@ -1,37 +1,47 @@
 const Promise = require('bluebird');
 const db = require('./server/db');
 
-const faker = require('faker')
+const faker = require('faker');
 
 const data = {
-  // address: [],
+  address: [],
   category: [],
-  // order: [],
-  // orderItem: [],
+  order: [],
+  orderItem: [],
   product: [],
   productCategory: [],
   review: [],
   user: [],
   cart: [],
+};
+
+for (let i = 0; i < 10; i++) {
+  const address = {
+    name: faker.name.findName(),
+    street: faker.address.streetAddress(),
+    city: faker.address.city(),
+    state: faker.address.state(),
+    zip: faker.address.zipCode(),
+  };
+  data.address.push(address);
 }
 
-// for (let i = 0; i < 10; i++) {
-//   const address = {
-//     name: faker.name.findName(),
-//     street: faker.name.streetAddress(),
-//     city: faker.address.city(),
-//     state: faker.address.state(),
-//     zip: faker.address.zipCode(),
-//   }
-//   data.address.push(address)
-// }
+for (let i = 0; i < 10; i++) {
+  const orderItem = {
+    price: faker.random.number({ min: 99, max: 50000 }),
+    productId: faker.random.number({ min: 1, max: 10 }),
+    orderId: faker.random.number({ min: 1, max: 5 }),
+  };
+  data.orderItem.push(orderItem);
+}
 
-// for (let i = 0; i < 10; i++) {
-//   const orderItem = {
-//     price: faker.commerce.price(),
-//   }
-//   data.orderItem.push(orderItem)
-// }
+for (let i = 0; i < 10; i++) {
+  const order = {
+    userId: faker.random.number({ min: 1, max: 7 }),
+    addressId: faker.random.number({ min: 1, max: 10 }),
+  };
+  data.order.push(order);
+}
 
 for (let i = 0; i < 20; i++) {
   const product = {
@@ -42,30 +52,29 @@ for (let i = 0; i < 20; i++) {
     brand: faker.company.companyName(),
     size: faker.random.number({ min: 6, max: 15 }),
     color: faker.commerce.color(),
-    photoUrl: `http://icons.iconarchive.com/icons/iconsmind/outline/256/Running-Shoes-icon.png`
-  }
-  data.product.push(product)
+    photoUrl: `http://icons.iconarchive.com/icons/iconsmind/outline/256/Running-Shoes-icon.png`,
+  };
+  data.product.push(product);
 }
-
 
 for (let i = 0; i < 10; i++) {
   const category = {
     name: faker.commerce.productMaterial(),
     description: faker.company.bs(),
-  }
-  data.category.push(category)
+  };
+  data.category.push(category);
 }
 
-const checker = []
+const checker = [];
 for (let i = 0; i < 80; i++) {
   const productCategory = {
     productId: faker.random.number({ min: 1, max: 20 }),
     categoryId: faker.random.number({ min: 1, max: 10 }),
-  }
-  const stringId = `${productCategory.productId}${productCategory.categoryId}`
+  };
+  const stringId = `${productCategory.productId}${productCategory.categoryId}`;
   if (!checker.includes(stringId)) {
-    data.productCategory.push(productCategory)
-    checker.push(stringId)
+    data.productCategory.push(productCategory);
+    checker.push(stringId);
   }
 }
 
@@ -76,76 +85,78 @@ for (let i = 0; i < 30; i++) {
     description: faker.lorem.paragraph(3),
     userId: faker.random.number({ min: 1, max: 10 }),
     productId: faker.random.number({ min: 1, max: 20 }),
-  }
-  data.review.push(review)
+  };
+  data.review.push(review);
 }
 
 for (let i = 0; i < 10; i++) {
   const user = {
     email: faker.internet.email(),
     password: faker.internet.password(),
-  }
-  data.user.push(user)
+  };
+  data.user.push(user);
 }
 
 for (let i = 0; i < 10; i++) {
   const cart = {
     purchased: faker.random.boolean(),
-    userId: i + 1
-  }
-  data.cart.push(cart)
+    userId: i + 1,
+  };
+  data.cart.push(cart);
 }
 
-db.sync({ force: true })
-  .then(function () {
-    console.log("Dropped old data, now inserting data.");
-    return Promise.all([
-      // Promise.map(data.address, function (entry) {
-      //   return db.model(`address`)
-      //     .create(entry)
-      // }),
-      // Promise.map(data.order, function (entry) {
-      //   return db.model(`order`)
-      //     .create(entry)
-      // }),
-      // Promise.map(data.orderentry, function (entry) {
-      //   return db.model(`orderentry`)
-      //     .create(entry)
-      // }),
-      Promise.map(data.product, function (entry) {
-        return db.model(`product`)
-          .create(entry)
-      }),
-      Promise.map(data.category, function (entry) {
-        return db.model(`category`)
-          .create(entry)
-      }),
-      Promise.map(data.productCategory, function (entry) {
-        return db.model(`productCategory`)
-          .create(entry)
-      }),
-      Promise.map(data.user, function (entry) {
-        return db.model(`user`)
-          .create(entry)
-      })
-    ])
-      .then(() => {
-        return Promise.all([
-          Promise.map(data.cart, function (entry) {
-            return db.model(`cart`)
-              .create(entry)
-          }),
-          Promise.map(data.review, function (entry) {
-            return db.model(`review`)
-              .create(entry)
-          }),
-        ])
-      })
-      .then(function () {
-        console.log(`Finished inserting data.`)
-        process.exit();
-      })
-      .catch(function (err) {
-        console.error('Error', err, err.stack);
-      });
-  })
+db.sync({ force: true }).then(function() {
+  console.log('Dropped old data, now inserting data.');
+  return Promise.all([
+    // Promise.map(data.address, function (entry) {
+    //   return db.model(`address`)
+    //     .create(entry)
+    // }),
+    // Promise.map(data.order, function (entry) {
+    //   return db.model(`order`)
+    //     .create(entry)
+    // }),
+    // Promise.map(data.orderentry, function (entry) {
+    //   return db.model(`orderentry`)
+    //     .create(entry)
+    // }),
+    Promise.map(data.product, function(entry) {
+      return db.model(`product`).create(entry);
+    }),
+    Promise.map(data.category, function(entry) {
+      return db.model(`category`).create(entry);
+    }),
+    Promise.map(data.productCategory, function(entry) {
+      return db.model(`productCategory`).create(entry);
+    }),
+    Promise.map(data.user, function(entry) {
+      return db.model(`user`).create(entry);
+    }),
+    Promise.map(data.address, function(entry) {
+      return db.model(`address`).create(entry);
+    }),
+  ])
+    .then(() => {
+      return Promise.all([
+        Promise.map(data.cart, function(entry) {
+          return db.model(`cart`).create(entry);
+        }),
+        Promise.map(data.review, function(entry) {
+          return db.model(`review`).create(entry);
+        }),
+        Promise.map(data.order, function(entry) {
+          return db.model(`order`).create(entry);
+        }),
+        Promise.map(data.orderItem, function(entry) {
+          return db.model(`orderItem`).create(entry);
+        }),
+      ]);
+    })
+    .then(function() {
+      console.log(`Finished inserting data.`);
+      process.exit();
+    })
+    .catch(function(err) {
+      console.error('Error', err, err.stack);
+    });
+});

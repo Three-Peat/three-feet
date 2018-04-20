@@ -39,7 +39,7 @@ describe('Address model', () => {
       expect(savedAddress.street).to.equal(`123 Main St`);
       expect(savedAddress.city).to.equal(`Chicago`);
       expect(savedAddress.state).to.equal(`IL`);
-      expect(savedAddress.zip).to.equal(60202);
+      expect(savedAddress.zip).to.equal('60202');
       expect(savedAddress.userId).to.equal(null);
     });
   });
