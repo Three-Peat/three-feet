@@ -126,9 +126,6 @@ db.sync({ force: true }).then(function() {
     Promise.map(data.category, function(entry) {
       return db.model(`category`).create(entry);
     }),
-    Promise.map(data.productCategory, function(entry) {
-      return db.model(`productCategory`).create(entry);
-    }),
     Promise.map(data.user, function(entry) {
       return db.model(`user`).create(entry);
     }),
@@ -140,6 +137,9 @@ db.sync({ force: true }).then(function() {
       return Promise.all([
         Promise.map(data.cart, function(entry) {
           return db.model(`cart`).create(entry);
+        }),
+        Promise.map(data.productCategory, function(entry) {
+          return db.model(`productCategory`).create(entry);
         }),
         Promise.map(data.review, function(entry) {
           return db.model(`review`).create(entry);
