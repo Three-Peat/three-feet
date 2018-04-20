@@ -3,32 +3,9 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import axios from 'axios'
 import { fetchProduct } from '../store'
+import CreateProductReview from './create-product-reviews';
 
 class ProductReviews extends Component {
-    constructor() {
-        super()
-
-        this.state = {
-            name: '',
-            rating: 5,
-            description: '',
-        }
-    }
-
-    handleSubmit = event => {
-        event.preventDefault()
-        const userId = this.props.user.id
-        const productId = this.props.products.selectedProduct.id
-        const { getProductReviews } = this.props
-        axios.post('/api/reviews', { ...this.state, userId, productId })
-            .then(() => getProductReviews(productId))
-    }
-
-    handleChange = event => {
-        let { name, value } = event.target
-        value = name === `rating` ? +value : value
-        this.setState({ [name]: value })
-    }
 
     render() {
         let { reviews, users } = this.props
@@ -43,20 +20,8 @@ class ProductReviews extends Component {
         reviews && (rating = calcRating(reviews))
         reviews && (reviews = reviews.slice(0).reverse())
         return (
-            <div style={{ border: `3px solid black`, margin: `10px` }}>
-                Write a review!
-            <form name="review-form" onSubmit={this.handleSubmit}>
-                    Title: <input type="text" name="name" onChange={this.handleChange} /><br />
-                    Rating: <select name="rating" onChange={this.handleChange}>
-                        <option>5</option>
-                        <option>4</option>
-                        <option>3</option>
-                        <option>2</option>
-                        <option>1</option>
-                    </select><br />
-                    Review: <input type="text" name="description" onChange={this.handleChange} /><br />
-                    <input type="submit" value="Submit" />
-                </form>
+            <div>
+            <CreateProductReview />
                 Overall rating: {Math.round(rating * 100) / 100}
                 {reviews && reviews.length !== 0
                     ? reviews.map(review => {

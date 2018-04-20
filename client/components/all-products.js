@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import SingleProduct from './single-product';
 import { fetchProducts, fetchCart } from '../store';
 import SearchProducts from './search-products';
+import CreateProduct from './create-product';
 
 /**
  * COMPONENT
@@ -31,7 +32,7 @@ export class AllProducts extends Component {
   render() {
     const products = this.props.products.allProducts;
     const inputValue = this.state.inputValue.toLowerCase();
-    const filteredProducts = products.filter(product => {
+    const filteredProducts = products.slice().reverse().filter(product => {
       return (
         product.name.toLowerCase().match(inputValue) ||
         product.brand.toLowerCase().match(inputValue)
@@ -43,6 +44,7 @@ export class AllProducts extends Component {
           handleChange={this.handleChange}
           inputValue={inputValue}
         />
+        <CreateProduct />
         {filteredProducts.map(p => <SingleProduct key={p.id} product={p} />)}
       </div>
     );

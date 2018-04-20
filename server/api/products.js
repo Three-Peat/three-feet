@@ -8,6 +8,12 @@ router.get('/', (req, res, next) => {
     .catch(next);
 });
 
+router.post('/', (req, res, next) => {
+  Product.create(req.body)
+    .then(products => res.json(products))
+    .catch(next);
+});
+
 router.get('/:productId', (req, res, next) => {
   Product.findById(req.params.productId, {
     include: {
