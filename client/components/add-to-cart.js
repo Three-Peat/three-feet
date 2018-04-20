@@ -4,11 +4,9 @@ import { connect } from 'react-redux';
 
 class AddToCart extends Component {
   handleAddToCart = () => {
-    console.log(this.props);
     const { addProductToCart } = this.props
-
-    const selected = this.props.product;
-    addProductToCart(selected)
+    const selectedId = this.props.product.id;
+    addProductToCart(selectedId)
   };
 
   render() {
@@ -22,7 +20,6 @@ class AddToCart extends Component {
   }
 }
 
-// export default AddToCart;
 const mapState = state => {
   const { cart } = state
   return { cart }

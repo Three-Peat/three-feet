@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import SingleProduct from './single-product';
 import { fetchProducts, fetchCart } from '../store';
 import SearchProducts from './search-products';
-import { Cart } from './cart';
 
 /**
  * COMPONENT
@@ -25,9 +24,8 @@ export class AllProducts extends Component {
   };
 
   componentDidMount = () => {
-    const { getAllProducts, getCart } = this.props;
+    const { getAllProducts } = this.props;
     getAllProducts();
-    getCart();
   };
 
   render() {
@@ -41,7 +39,6 @@ export class AllProducts extends Component {
     });
     return (
       <div>
-        <Cart />
         <SearchProducts
           handleChange={this.handleChange}
           inputValue={inputValue}
@@ -61,9 +58,6 @@ const mapDispatch = dispatch => {
   return {
     getAllProducts: products => {
       dispatch(fetchProducts(products));
-    },
-    getCart: cart => {
-      dispatch(fetchCart(cart));
     },
   };
 };
