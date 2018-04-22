@@ -30,9 +30,9 @@ router.post('/:categoryId/products/:productId', (req, res, next) => {
 })
 
 router.delete('/:categoryId/products/:productId', (req, res, next) => {
-  const productId = req.params.productId
+  const { productId, categoryId } = req.params
   productCategory.destroy({
-    where: { productId }
+    where: { productId, categoryId }
   })
     .then(products => res.json(products))
     .catch(next)

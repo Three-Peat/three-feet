@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import { fetchCategories, postCategory } from '../store'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-import CreateCategory from './create-category'
 
 class Categories extends Component {
     componentDidMount = () => {
@@ -16,7 +15,6 @@ class Categories extends Component {
         const { allCategories } = this.props.categories
         return (
             <div>
-            <CreateCategory />
                 {allCategories.map(category => {
                     return (
                         <div key={category.id}>

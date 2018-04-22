@@ -17,7 +17,6 @@ const SingleProduct = props => {
       <p>{name}</p>
       <p>{price}</p>
       <p>{brand}</p>
-      <AddToCart product={props.product} />
     </div>
   );
 };
