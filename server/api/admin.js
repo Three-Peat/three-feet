@@ -1,25 +1,30 @@
 const router = require('express').Router();
-const { Product, Review } = require('../db/models');
+const { User } = require('../db/models');
 module.exports = router;
 
-router.get('/', (req, res, next) => {
-  Product.findAll()
-    .then(products => res.json(products))
+router.get('/users/:userId', (req, res, next) => {
+  const id = req.params.userId
+  User.findById(id)
+    .then(user => res.json(user))
     .catch(next);
 });
 
-router.post('/', (req, res, next) => {
-  Product.create(req.body)
-    .then(products => res.json(products))
+router.put('/users/:userId', (req, res, next) => {
+  const id = req.params.userId
+  console.log(req.body)
+  req.body.isAdmin && User.update(
+    { isAdmin: true }, {
+      where: { id }
+    })
+    .then(user => res.json(user))
     .catch(next);
 });
 
-router.get('/:productId', (req, res, next) => {
-  Product.findById(req.params.productId, {
-    include: {
-      model: Review,
-    },
+router.delete('/users/:userId', (req, res, next) => {
+  const id = req.params.userId
+  req.body.isAdmin && User.destroy({
+    where: { id }
   })
-    .then(product => res.json(product))
+    .then(user => res.json(user))
     .catch(next);
 });

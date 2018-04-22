@@ -12,7 +12,9 @@ import {
   Cart,
   ProductDetail,
   AllReviews,
-  Admin
+  AdminUsers,
+  AdminProducts,
+  AdminIndex
 } from './components';
 import { me, fetchCart, fetchProducts, fetchCategories, fetchUsers } from './store';
 
@@ -40,7 +42,9 @@ class Routes extends Component {
             <Route path="/home" component={UserHome} />
             {isAdmin && (
               <Switch>
-                <Route path="/admin" component={Admin} />
+                <Route exact path="/admin" component={AdminIndex} />
+                <Route path="/admin/products/" component={AdminProducts} />
+                <Route path="/admin/users/" component={AdminUsers} />
                 {/* Routes placed here are only available after logging in as an admin */}
               </Switch>
             )}
