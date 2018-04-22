@@ -8,6 +8,7 @@ import CreateProduct from './create-product';
 import CreateCategory from './create-category';
 import AddToCategory from './add-to-category';
 import RemoveFromCategory from './remove-from-category';
+import AdjustInventory from './adjust-inventory';
 
 /**
  * COMPONENT
@@ -35,7 +36,7 @@ export class AdminProducts extends Component {
   render() {
     const products = this.props.products.allProducts;
     const inputValue = this.state.inputValue.toLowerCase();
-    const filteredProducts = products.slice().reverse().filter(product => {
+    const filteredProducts = products.filter(product => {
       return (
         product.name.toLowerCase().match(inputValue) ||
         product.brand.toLowerCase().match(inputValue)
@@ -53,6 +54,7 @@ export class AdminProducts extends Component {
           return (
             <div key={product.id}>
               <SingleProduct product={product} />
+              <AdjustInventory product={product} />
               <AddToCategory product={product} />
               <RemoveFromCategory product={product} />
             </div>
