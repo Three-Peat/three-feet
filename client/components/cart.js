@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchCart } from '../store';
+import { Link } from 'react-router-dom';
 
 export class Cart extends Component {
   componentDidMount = () => {
@@ -24,8 +25,10 @@ export class Cart extends Component {
         {userCart &&
           userCart.map(product => {
             return (
-              <div key={product.id + 1}>
-                <img src={product.photoUrl} alt="shoe" />
+              <div key={product.id}>
+                <Link to={`/products/${product.id}`}>
+                  <img src={product.photoUrl} alt="shoe" />
+                </Link>
                 <p>{product.name}</p>
                 <p>{product.price}</p>
                 <p>{product.brand}</p>
