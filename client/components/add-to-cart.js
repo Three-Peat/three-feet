@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
-import { addToCart } from '../store';
+import { addToCart, fetchCart } from '../store';
 import { connect } from 'react-redux';
 
 class AddToCart extends Component {
   handleAddToCart = () => {
-    const { addProductToCart, cart, user } = this.props;
+    const { addProductToCart, cart, user, getCart } = this.props;
     const selectedId = this.props.product.id;
+
+    // this is dumb, please fix. I always want getcart after adding to cart finishes
     if (user.id) {
-      const cartId = cart[0].id;
-      addProductToCart({ productId: selectedId, cartId: cartId});
+      const cartId = cart.products[0].id;
+      addProductToCart({ productId: selectedId, cartId: cartId });
+      setTimeout(getCart, 50);
     } else {
       const { product } = this.props;
       addProductToCart(product);
@@ -35,6 +38,9 @@ const mapDispatch = dispatch => {
   return {
     addProductToCart: product => {
       dispatch(addToCart(product));
+    },
+    getCart: cart => {
+      dispatch(fetchCart(cart));
     },
   };
 };

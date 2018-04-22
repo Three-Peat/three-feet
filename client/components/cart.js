@@ -25,7 +25,7 @@ export class Cart extends Component {
         {userCart &&
           userCart.map(product => {
             return (
-              <div key={product.id}>
+              <div key={product.id + 1}>
                 <Link to={`/products/${product.id}`}>
                   <img src={product.photoUrl} alt="shoe" />
                 </Link>
