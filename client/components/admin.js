@@ -4,12 +4,15 @@ import { connect } from 'react-redux';
 import SingleProduct from './single-product';
 import { fetchProducts, fetchCart } from '../store';
 import SearchProducts from './search-products';
-import AddToCart from './add-to-cart';
+import CreateProduct from './create-product';
+import CreateCategory from './create-category';
+import AddToCategory from './add-to-category';
+import RemoveFromCategory from './remove-from-category';
 
 /**
  * COMPONENT
  */
-export class AllProducts extends Component {
+export class Admin extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -44,11 +47,14 @@ export class AllProducts extends Component {
           handleChange={this.handleChange}
           inputValue={inputValue}
         />
+        <CreateProduct />
+        <CreateCategory />
         {filteredProducts.map(product => {
           return (
             <div key={product.id}>
               <SingleProduct product={product} />
-              <AddToCart product={product} />
+              <AddToCategory product={product} />
+              <RemoveFromCategory product={product} />
             </div>
           )
         })}
@@ -70,7 +76,7 @@ const mapDispatch = dispatch => {
   };
 };
 
-export default connect(mapState, mapDispatch)(AllProducts);
+export default connect(mapState, mapDispatch)(Admin);
 
 /**
  * PROP TYPES

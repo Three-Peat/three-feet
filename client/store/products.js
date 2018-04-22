@@ -6,6 +6,7 @@ import history from '../history';
  */
 const GET_PRODUCTS = 'GET_PRODUCTS';
 const GET_PRODUCT = 'GET_PRODUCT';
+const GET_PRODUCT_CATEGORIES = 'GET_PRODUCT_CATEGORIES';
 
 /**
  * INITIAL STATE
@@ -30,16 +31,16 @@ export const fetchProducts = () => dispatch =>
     .then(res => dispatch(getProducts(res.data || defaultState)))
     .catch(err => console.log(err));
 
-export const fetchProduct = id => dispatch =>
+export const fetchProduct = productId => dispatch =>
   axios
-    .get(`/api/products/${id}`)
+    .get(`/api/products/${productId}`)
     .then(res => dispatch(getProduct(res.data || defaultState)))
     .catch(err => console.error(err));
 
 /**
  * REDUCER
  */
-export default function(state = defaultState, action) {
+export default function (state = defaultState, action) {
   switch (action.type) {
     case GET_PRODUCTS:
       return {

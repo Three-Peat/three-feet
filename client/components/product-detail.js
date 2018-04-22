@@ -43,7 +43,6 @@ export class ProductDetail extends Component {
         <p>{'$' + price / 100}</p>
         <p>{description}</p>
         <AddToCart product={this.props.products.selectedProduct} />
-        <AddToCategory productId={productId} />
         <Reviews reviews={reviews} />
       </div>
     );
