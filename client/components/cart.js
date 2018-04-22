@@ -13,10 +13,10 @@ export class Cart extends Component {
   render() {
     const { cart, user } = this.props;
     let userCart;
-    if (user.id && cart[0] !== undefined) {
-      userCart = cart[0].products;
+    if (user.id && cart.products[0] !== undefined) {
+      userCart = cart.products[0].products;
     } else {
-      userCart = [...Object.values(cart)];
+      userCart = [...Object.values(cart.products)];
     }
     return (
       <div>

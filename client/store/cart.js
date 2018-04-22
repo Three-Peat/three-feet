@@ -43,7 +43,7 @@ export const addToCart = product => dispatch =>
 export default function(state = defaultState, action) {
   switch (action.type) {
     case GET_CART:
-      return action.cart;
+      return {...state, products: action.cart};
     case ADD_TO_CART:
       return { ...state,
         products: action.product
