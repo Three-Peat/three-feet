@@ -1,13 +1,9 @@
 const router = require('express').Router();
-const { Cart, User, Product } = require('../db/models');
-Product.belongsToMany(Cart, { through: 'productCart' });
-Cart.belongsToMany(Product, { through: 'productCart' });
-const db = require('../db/db');
-const ProductCart = db.model('productCart');
+const { Cart, Product, ProductCart } = require('../db/models');
 module.exports = router;
 
+
 router.get('/', (req, res, next) => {
-  // console.log(req.user)
   if (req.user) {
     const userId = req.user.id;
     Cart.findOrCreate({
@@ -17,24 +13,35 @@ router.get('/', (req, res, next) => {
       include: [{ model: Product }],
     })
       .then(cart => {
-        // console.log(cart);
         res.json(cart);
       })
       .catch(next);
   } else {
-    console.log(' I am here');
-    Cart.create({})
-      .then(cart => res.json(cart))
-      .catch(next);
+    try {
+      res.json(req.session.cart)
+    } catch (err) {console.log(err)}
   }
 });
 
 router.put('/', (req, res, next) => {
-  const userId = req.user.id;
-  // console.log(req.user)
-  // console.log(req.body)
+  if (req.user){
+    ProductCart.upsert(req.body)
+      .then(cart => res.json(cart))
+      .catch(next);
+  } else {
+    try {
+      const productId = req.body.id
+      if (!req.session.cart[productId]) {
+        req.session.cart[productId] = req.body
+        req.session.cart[productId].quantity = 1
+        res.json(req.session.cart)
+      }
+      else {
+        req.session.cart[productId].quantity++
+        res.json(req.session.cart)
+      }
+      // req.session.destroy();
+    } catch (err) {console.log(err)}
+  }
 
-  ProductCart.create(req.body)
-    .then(cart => res.json(cart))
-    .catch(next);
 });

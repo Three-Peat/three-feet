@@ -4,11 +4,15 @@ import { connect } from 'react-redux';
 
 class AddToCart extends Component {
   handleAddToCart = () => {
-    const { addProductToCart, cart } = this.props
+    const { addProductToCart, cart, user } = this.props;
     const selectedId = this.props.product.id;
-    const cartId = cart[0].id
-
-    addProductToCart({productId: selectedId, cartId: cartId})
+    if (user.id) {
+      const cartId = cart[0].id;
+      addProductToCart({ productId: selectedId, cartId: cartId});
+    } else {
+      const { product } = this.props;
+      addProductToCart(product);
+    }
   };
 
   render() {
@@ -23,16 +27,16 @@ class AddToCart extends Component {
 }
 
 const mapState = state => {
-  const { cart } = state
-  return { cart }
-}
+  const { cart, user } = state;
+  return { cart, user };
+};
 
 const mapDispatch = dispatch => {
   return {
-      addProductToCart: product => {
-          dispatch(addToCart(product))
-      }
-  }
-}
+    addProductToCart: product => {
+      dispatch(addToCart(product));
+    },
+  };
+};
 
-export default connect(mapState, mapDispatch)(AddToCart)
+export default connect(mapState, mapDispatch)(AddToCart);
