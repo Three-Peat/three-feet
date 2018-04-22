@@ -12,7 +12,7 @@ import RemoveFromCategory from './remove-from-category';
 /**
  * COMPONENT
  */
-export class Admin extends Component {
+export class AdminProducts extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -76,7 +76,7 @@ const mapDispatch = dispatch => {
   };
 };
 
-export default connect(mapState, mapDispatch)(Admin);
+export default connect(mapState, mapDispatch)(AdminProducts);
 
 /**
  * PROP TYPES
