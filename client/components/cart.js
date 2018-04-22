@@ -4,32 +4,41 @@ import { fetchCart } from '../store';
 
 export class Cart extends Component {
   componentDidMount = () => {
-    const { getCart } = this.props;
-    getCart();
+    if (!this.props.cart) {
+      const { getCart } = this.props;
+      getCart();
+    }
   };
 
   render() {
-    const { cart } = this.props;
+    const { cart, user } = this.props;
+    let userCart;
+    if (user.id && cart[0] !== undefined) {
+      userCart = cart[0].products;
+    } else {
+      userCart = [...Object.values(cart)];
+    }
     return (
       <div>
         <p>My Cart</p>
-        {cart[0].products && cart[0].products.map(product => {
-          return (
-            <div key={product.id}>
-              <img src={product.photoUrl} alt="shoe" />
-              <p>{product.name}</p>
-              <p>{product.price}</p>
-              <p>{product.brand}</p>
-            </div>
-          );
-        })}
+        {userCart &&
+          userCart.map(product => {
+            return (
+              <div key={product.id + 1}>
+                <img src={product.photoUrl} alt="shoe" />
+                <p>{product.name}</p>
+                <p>{product.price}</p>
+                <p>{product.brand}</p>
+              </div>
+            );
+          })}
       </div>
     );
   }
 }
 const mapState = state => {
-  const { cart } = state;
-  return { cart };
+  const { cart, user } = state;
+  return { cart, user };
 };
 
 const mapDispatch = dispatch => {

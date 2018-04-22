@@ -39,6 +39,8 @@ Category.belongsToMany(Product, { through: 'productCategory' });
 Product.hasMany(Review);
 
 const productCategory = db.model(`productCategory`)
+const ProductCart = db.model('productCart')
+
 
 module.exports = {
   User,
@@ -49,5 +51,6 @@ module.exports = {
   Order,
   Review,
   OrderItem,
-  productCategory
+  productCategory,
+  ProductCart,
 };
