@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom'
  * COMPONENT
  */
 const SingleProduct = props => {
-  const { photoUrl, name, price, brand } = props.product;
+  const { photoUrl, name, price, brand, inventory } = props.product;
   return (
     <div>
       <Link to={`/products/${props.product.id}`}>
@@ -17,6 +17,7 @@ const SingleProduct = props => {
       <p>{name}</p>
       <p>{price}</p>
       <p>{brand}</p>
+      <p>{inventory} in stock</p>
     </div>
   );
 };

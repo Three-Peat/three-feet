@@ -23,3 +23,14 @@ router.get('/:productId', (req, res, next) => {
     .then(product => res.json(product))
     .catch(next);
 });
+
+router.put('/:productId', (req, res, next) => {
+  const id = req.params.productId
+  Product.update(req.body, {
+    where: {
+      id
+    }
+  })
+    .then(product => res.json(product))
+    .catch(next);
+});

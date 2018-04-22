@@ -35,14 +35,20 @@ export class ProductDetail extends Component {
       price,
       brand,
       description,
+      inventory,
     } = this.props.products.selectedProduct;
+    console.log(inventory)
     return (
       <div>
         <img src={photoUrl} alt="shoe" />
         <p>{brand + ' ' + name}</p>
         <p>{'$' + price / 100}</p>
         <p>{description}</p>
-        <AddToCart product={this.props.products.selectedProduct} />
+        {inventory > 0 ?
+           <div>
+           <AddToCart product={this.props.products.selectedProduct} /> {inventory} in stock
+           </div> :
+          `Currently Unavailable`}
         <Reviews reviews={reviews} />
       </div>
     );
