@@ -29,6 +29,7 @@ export class Cart extends Component {
                 <p>{product.name}</p>
                 <p>{product.price}</p>
                 <p>{product.brand}</p>
+                <p>Quantity: {product.quantity}</p>
               </div>
             );
           })}
