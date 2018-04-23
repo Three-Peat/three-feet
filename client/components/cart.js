@@ -1,15 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchCart } from '../store';
+import { fetchCart, updateCart } from '../store';
 import { Link } from 'react-router-dom';
-import RemoveFromCart from './remove-from-cart'
+import RemoveFromCart from './remove-from-cart';
 
 export class Cart extends Component {
-  componentDidMount = () => {
-    if (!this.props.cart) {
-      const { getCart } = this.props;
-      getCart();
-    }
+  increaseQuantity = prod => {
+    const { updateCartQuantity } = this.props;
+    if (prod.quantity) prod.quantity++;
+    else prod.quantity = prod.productCart.quantity++;
+    updateCartQuantity(prod);
+  };
+
+  decreaseQuantity = prod => {
+    const { updateCartQuantity } = this.props;
+    if (prod.quantity) prod.quantity--;
+    else prod.quantity = 1;
+    updateCartQuantity(prod);
   };
 
   render() {
@@ -38,6 +45,12 @@ export class Cart extends Component {
                 ) : (
                   <p>Quantity: {product.quantity}</p>
                 )}
+                <button onClick={evt => this.decreaseQuantity(product, evt)}>
+                  -1
+                </button>
+                <button onClick={evt => this.increaseQuantity(product, evt)}>
+                  +1
+                </button>
                 <RemoveFromCart product={product} />
               </div>
             );
@@ -56,10 +69,9 @@ const mapDispatch = dispatch => {
     getCart: cart => {
       dispatch(fetchCart(cart));
     },
-    // Going to need this eventually
-    // removeFromCart: product => {
-    //   dispatch(removeFromCart(product));
-    // },
+    updateCartQuantity: product => {
+      dispatch(updateCart(product));
+    },
   };
 };
 
