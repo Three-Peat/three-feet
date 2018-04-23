@@ -17,9 +17,8 @@ class RemoveFromCart extends Component {
       getCart()
     } else {
       const { product } = this.props;
-      console.log(product)
       removeProductFromCart(product);
-      setTimeout(getCart, 50);
+      getCart()
     }
   };
 

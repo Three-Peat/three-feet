@@ -26,9 +26,18 @@ router.get('/', (req, res, next) => {
 
 router.put('/', (req, res, next) => {
   if (req.user) {
-    ProductCart.upsert(req.body)
+    ProductCart.upsert(req.body).then(
+    ProductCart.find({
+      where: {
+        productId: req.body.productId,
+        cartId: req.body.cartId
+      }
+    }).then(cart => {
+      if (cart !== null) cart.increment('quantity')
+    })
       .then(cart => res.json(cart))
-      .catch(next);
+      .catch(next)
+  )
   } else {
     try {
       const productId = req.body.id;
@@ -40,7 +49,6 @@ router.put('/', (req, res, next) => {
         req.session.cart[productId].quantity++;
         res.json(req.session.cart);
       }
-      // req.session.destroy();
     } catch (err) {
       console.log(err);
     }
