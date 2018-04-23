@@ -4,6 +4,8 @@ import { fetchCart, updateCart } from '../store';
 import { Link } from 'react-router-dom';
 import RemoveFromCart from './remove-from-cart'
 import SingleProduct from './single-product'
+import PlaceOrder from './order';
+
 
 export class Cart extends Component {
   increaseQuantity = prod => {
@@ -54,6 +56,7 @@ export class Cart extends Component {
               </div>
             );
           })}
+        <PlaceOrder products={cart.products[0]} />
       </div>
     );
   }

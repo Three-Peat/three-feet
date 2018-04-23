@@ -19,15 +19,27 @@ router.get('/:orderId', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
-  const orderedItems = req.body;
-  Order.create()
+  const userId = req.session.passport.user;
+  let orderedItems = req.body;
+  return Order.create({
+    userId: userId,
+  })
     .then(order => {
-      OrderItem.bulkCreate(orderedItems, {
-        orderId: order.id,
+      const orderId = order.dataValues.id;
+      orderedItems = orderedItems.map(item => {
+        return {
+          productId: item.id,
+          price: item.price,
+        };
       });
+      orderedItems = orderedItems.map(item => {
+        item.orderId = orderId;
+        return item;
+      });
+      return OrderItem.bulkCreate(orderedItems, { individualHooks: true });
     })
     .then(orders => {
-      console.log(orders);
       res.json(orders);
-    });
+    })
+    .catch(next);
 });
