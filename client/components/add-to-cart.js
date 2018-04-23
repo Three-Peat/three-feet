@@ -23,7 +23,7 @@ class AddToCart extends Component {
 
   render() {
     return (
-      <div>
+      <div className="add-to-cart">
         <button type="submit" onClick={this.handleAddToCart}>
           Add to Cart
         </button>

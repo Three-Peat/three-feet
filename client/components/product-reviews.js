@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import axios from 'axios'
 import { fetchProduct } from '../store'
 import CreateProductReview from './create-product-reviews';
 
@@ -20,16 +19,15 @@ class ProductReviews extends Component {
         reviews && (rating = calcRating(reviews))
         reviews && (reviews = reviews.slice(0).reverse())
         return (
-            <div>
+            <div className="product-reviews">
             <CreateProductReview />
-                Overall rating: {Math.round(rating * 100) / 100}
+                <p>Overall rating: {rating ? `${Math.round(rating * 100) / 100} / 5` : `N/A`}</p>
                 {reviews && reviews.length !== 0
                     ? reviews.map(review => {
                         const author = users.find(user => user.id === review.userId)
                         return (
-                            <div key={review.id} style={{ border: `1px solid black` }}>
-                                <p>{review.name} - {author ? author.email : `anonymous`}</p>
-                                <p>{review.rating} stars</p>
+                            <div className="product-review" key={review.id}>
+                                <p>{review.name} - {`${review.rating} / 5`} - {author ? author.email : `anonymous`}</p>
                                 <p>{review.description}</p>
                             </div>
                         )

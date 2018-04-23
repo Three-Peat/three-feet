@@ -10,14 +10,18 @@ import { Link } from 'react-router-dom'
 const SingleProduct = props => {
   const { photoUrl, name, price, brand, inventory } = props.product;
   return (
-    <div>
+    <div className="single-product">
       <Link to={`/products/${props.product.id}`}>
-        <img src={photoUrl} alt="shoe" />
+        <div className="photo">
+          <img src={photoUrl} alt="shoe" />
+        </div>
+        <div className="info">
+          <p>{name}</p>
+          <p>${price / 100}</p>
+          <p>{brand}</p>
+          <p>{inventory} in stock</p>
+        </div>
       </Link>
-      <p>{name}</p>
-      <p>{price}</p>
-      <p>{brand}</p>
-      <p>{inventory} in stock</p>
     </div>
   );
 };
