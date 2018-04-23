@@ -1,16 +1,25 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchCart } from '../store';
+import { fetchCart, updateCart } from '../store';
 import { Link } from 'react-router-dom';
-import RemoveFromCart from './remove-from-cart';
+import RemoveFromCart from './remove-from-cart'
+import SingleProduct from './single-product'
 import PlaceOrder from './order';
 
+
 export class Cart extends Component {
-  componentDidMount = () => {
-    if (!this.props.cart) {
-      const { getCart } = this.props;
-      getCart();
-    }
+  increaseQuantity = prod => {
+    const { updateCartQuantity } = this.props;
+    if (prod.quantity) prod.quantity++;
+    else prod.quantity = prod.productCart.quantity++;
+    updateCartQuantity(prod);
+  };
+
+  decreaseQuantity = prod => {
+    const { updateCartQuantity } = this.props;
+    if (prod.quantity) prod.quantity--;
+    else prod.quantity = 1;
+    updateCartQuantity(prod);
   };
 
   render() {
@@ -23,23 +32,27 @@ export class Cart extends Component {
     }
     return (
       <div>
-        <p>My Cart</p>
+        <h2 className="my-cart">My Cart</h2>
         {userCart &&
           userCart.map(product => {
             return (
-              <div key={product.id + 1}>
-                <Link to={`/products/${product.id}`}>
-                  <img src={product.photoUrl} alt="shoe" />
-                </Link>
-                <p>{product.name}</p>
-                <p>{product.price}</p>
-                <p>{product.brand}</p>
-                {user.id ? (
-                  <p>Quantity: {product.productCart.quantity}</p>
-                ) : (
-                  <p>Quantity: {product.quantity}</p>
-                )}
+              <div className="cart" key={product.id + 1}>
+                <div className="cart-product">
+                  <SingleProduct product={product} />
+                  {user.id ? (
+                    <p>Quantity: {product.productCart.quantity}</p>
+                  ) : (
+                      <p>Quantity: {product.quantity}</p>
+                    )}
+                <button onClick={evt => this.decreaseQuantity(product, evt)}>
+                  -1
+                </button>
+                <button onClick={evt => this.increaseQuantity(product, evt)}>
+                  +1
+                </button>
                 <RemoveFromCart product={product} />
+                </div>
+
               </div>
             );
           })}
@@ -58,10 +71,9 @@ const mapDispatch = dispatch => {
     getCart: cart => {
       dispatch(fetchCart(cart));
     },
-    // Going to need this eventually
-    // removeFromCart: product => {
-    //   dispatch(removeFromCart(product));
-    // },
+    updateCartQuantity: product => {
+      dispatch(updateCart(product));
+    },
   };
 };
 

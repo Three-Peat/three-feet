@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { fetchProduct } from '../store/products';
 import AddToCart from './add-to-cart';
 import Reviews from './product-reviews';
-import AddToCategory from './add-to-category';
 
 /**
  * COMPONENT
@@ -27,7 +26,6 @@ export class ProductDetail extends Component {
   }
 
   render() {
-    const { productId } = this.props.match.params
     const {
       reviews,
       photoUrl,
@@ -37,19 +35,22 @@ export class ProductDetail extends Component {
       description,
       inventory,
     } = this.props.products.selectedProduct;
-    console.log(inventory)
     return (
-      <div>
+      <div className="product-detail">
+        <h2>{`${brand} - ${name}`}</h2>
         <img src={photoUrl} alt="shoe" />
-        <p>{brand + ' ' + name}</p>
-        <p>{'$' + price / 100}</p>
-        <p>{description}</p>
-        {inventory > 0 ?
-           <div>
-           <AddToCart product={this.props.products.selectedProduct} /> {inventory} in stock
-           </div> :
-          `Currently Unavailable`}
-        <Reviews reviews={reviews} />
+        <div className="product-info">
+          <p>{'$' + price / 100}</p>
+          <p>{description}</p>
+          {inventory > 0 ?
+            <div className="quantity-cart">
+              {inventory} in stock <AddToCart product={this.props.products.selectedProduct} />
+            </div> :
+            `Currently Unavailable`}
+        </div>
+        <div>
+          <Reviews reviews={reviews} />
+        </div>
       </div>
     );
   }

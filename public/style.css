@@ -19,3 +19,181 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+
+/* SINGLE_PRODUCT */
+.single-product {
+  /* border: solid black 1px; */
+  width: 220px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  margin: 3px;
+}
+
+.single-product img {
+  height: 150px;
+  width: 150px;
+}
+
+.single-product p {
+  margin: 5px;
+  color: black;
+}
+
+.single-product .info {
+  margin: 3px;
+  flex-grow: 1;
+}
+
+.single-product .photo {
+  display: flex;
+  justify-content: center;
+  border: solid black 1px;
+  margin: 3px;
+  background-color: rgb(200, 200, 200);
+}
+
+/* ALL_PRODUCTS */
+
+.all-products {
+  display: inline-flex;
+  flex-wrap: wrap;
+}
+
+.all-products .single-item {
+  border: solid black 1px;
+  margin: 3px;
+  background-color: lightblue;
+}
+
+.all-products .single-item:hover {
+  box-shadow: 1px 2px 1px grey
+}
+
+/* ADD_TO_CART */
+
+.all-products .add-to-cart {
+  margin: 5px;
+}
+
+.add-to-cart button {
+  font-size: 24px;
+  border-radius: 10px;
+  border: solid black 1px;
+  background-color: rgb(125, 200, 225);
+}
+
+.add-to-cart button:hover {
+  background-color: rgb(125, 150, 150);
+}
+
+
+/* SEARCH_PRODUCTS */
+
+.search-products input {
+  margin: 3px;
+  height: 40px;
+  width: 456px;
+  font-size: 18px;
+  color: black;
+}
+
+/* NAVBAR */
+
+.navbar nav {
+  background-color: black;
+}
+
+.navbar a {
+  color: white;
+}
+
+/* PRODUCT_DETAIL */
+
+.product-detail {
+  background-color: lightblue;
+  margin: 5px;
+}
+
+.product-detail .product-info{
+  margin: 3px;
+}
+
+.product-detail img {
+  background-color: rgb(200, 200, 200);
+  border: solid black 1px;
+  margin: 5px;
+}
+
+.product-detail p {
+  margin: 5px
+}
+
+.product-detail h2 {
+  padding-top: 10px;
+  margin: 5px
+}
+
+.product-detail .quantity-cart {
+  margin: 5px;
+}
+
+.product-detail button {
+  margin: 6px 0px;
+}
+
+.product-detail .product-reviews {
+  border: solid black 1px;
+  margin: 3px;
+}
+
+.product-detail .write-review {
+  margin: 5px;
+}
+
+/* CART */
+
+.cart {
+  display: inline-flex;
+  flex-wrap: wrap;
+}
+
+.cart-product {
+  width: 226px;
+  border: solid black 1px;
+  margin: 3px;
+  background-color: lightblue;
+}
+
+.cart-product p {
+  margin: 5px;
+}
+
+.my-cart {
+  margin: 16px 5px;
+
+}
+
+.cart-product:hover {
+  box-shadow: 1px 2px 1px grey
+}
+
+.cart-product button {
+  font-size: 24px;
+  border-radius: 10px;
+  border: solid black 1px;
+  background-color: rgb(125, 200, 225);
+  margin: 5px;
+}
+
+.cart-product button:hover {
+  background-color: rgb(125, 150, 150);
+}
+
+/* PRODUCT_REVIEW */
+
+.product-review {
+  margin: 5px;
+  border: solid black 1px;
+}

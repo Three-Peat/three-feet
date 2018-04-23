@@ -32,7 +32,7 @@ export class AllProducts extends Component {
   render() {
     const products = this.props.products.allProducts;
     const inputValue = this.state.inputValue.toLowerCase();
-    const filteredProducts = products.filter(product => {
+    const filteredProducts = products.slice().reverse().filter(product => {
       return (
         product.name.toLowerCase().match(inputValue) ||
         product.brand.toLowerCase().match(inputValue)
@@ -44,14 +44,16 @@ export class AllProducts extends Component {
           handleChange={this.handleChange}
           inputValue={inputValue}
         />
-        {filteredProducts.map(product => {
+        <div className="all-products">
+          {filteredProducts.map(product => {
             if (product.inventory > 0) return (
-              <div key={product.id}>
+              <div className="single-item" key={product.id} >
                 <SingleProduct product={product} />
                 <AddToCart product={product} />
               </div>
             )
-        })}
+          })}
+        </div>
       </div>
     );
   }

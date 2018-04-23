@@ -27,17 +27,18 @@ router.get('/', (req, res, next) => {
 router.put('/', (req, res, next) => {
   if (req.user) {
     ProductCart.upsert(req.body).then(
-    ProductCart.find({
-      where: {
-        productId: req.body.productId,
-        cartId: req.body.cartId
-      }
-    }).then(cart => {
-      if (cart !== null) cart.increment('quantity')
-    })
-      .then(cart => res.json(cart))
-      .catch(next)
-  )
+      ProductCart.find({
+        where: {
+          productId: req.body.productId,
+          cartId: req.body.cartId,
+        },
+      })
+        .then(cart => {
+          if (cart !== null) cart.increment('quantity');
+        })
+        .then(cart => res.json(cart))
+        .catch(next),
+    );
   } else {
     try {
       const productId = req.body.id;
@@ -49,6 +50,40 @@ router.put('/', (req, res, next) => {
         req.session.cart[productId].quantity++;
         res.json(req.session.cart);
       }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+});
+
+router.put('/update', (req, res, next) => {
+  if (req.user) {
+    ProductCart.find({
+      where: {
+        productId: req.body.productCart.productId,
+        cartId: req.body.productCart.cartId,
+      },
+    })
+      .then(cart => {
+        const curCart = cart.dataValues.quantity
+        const nextCart = req.body.productCart.quantity
+        if (curCart < nextCart) cart.increment('quantity')
+        else cart.decrement('quantity')
+      })
+      .then(cart => res.json(cart))
+      .catch(next);
+  } else {
+    try {
+      console.log(req.body);
+      const productId = req.body.id;
+      let curQuant = req.session.cart[productId].quantity;
+      const nextQuant = req.body.quantity;
+      if (curQuant < nextQuant) {
+        req.session.cart[productId].quantity++;
+      } else {
+        req.session.cart[productId].quantity--;
+      }
+      res.json(req.session.cart);
     } catch (err) {
       console.log(err);
     }

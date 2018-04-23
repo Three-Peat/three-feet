@@ -7,10 +7,10 @@ const SearchProducts = props => {
   const inputValue = props.inputValue;
 
   return (
-    <div>
+    <div className="search-products">
       <input
         type="text"
-        placeholder="Search by name or brand.."
+        placeholder="Search by name or brand..."
         onChange={handleChange}
         value={inputValue}
       />

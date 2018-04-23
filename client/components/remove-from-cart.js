@@ -18,7 +18,6 @@ class RemoveFromCart extends Component {
     } else {
       const { product } = this.props;
       removeProductFromCart(product);
-      getCart()
     }
   };
 
