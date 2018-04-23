@@ -14,7 +14,6 @@ class AddToCart extends Component {
         productId: selectedId,
         cartId: cartId,
       });
-      setTimeout(getCart, 50);
     } else {
       const { product } = this.props;
       addProductToCart(product);
