@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchCart } from '../store';
 import { Link } from 'react-router-dom';
-import RemoveFromCart from './remove-from-cart'
+import RemoveFromCart from './remove-from-cart';
+import PlaceOrder from './order';
 
 export class Cart extends Component {
   componentDidMount = () => {
@@ -42,6 +43,7 @@ export class Cart extends Component {
               </div>
             );
           })}
+        <PlaceOrder products={cart.products[0]} />
       </div>
     );
   }
