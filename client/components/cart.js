@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchCart, updateCart } from '../store';
+import { fetchCart, updateCart, purchaseCart } from '../store';
 import { Link } from 'react-router-dom';
 import RemoveFromCart from './remove-from-cart'
 import SingleProduct from './single-product'

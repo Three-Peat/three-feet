@@ -9,6 +9,7 @@ const ADD_TO_CART = 'ADD_TO_CART';
 const EMPTY_CART = 'EMPTY_CART';
 const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
 const UPDATE_CART = 'UPDATE_CART';
+const PURCHASE_CART = 'PURCHASE_CART'
 /**
  * INITIAL STATE
  */
@@ -25,6 +26,7 @@ const empty = cart => ({ type: EMPTY_CART, cart });
 const add = product => ({ type: ADD_TO_CART, product });
 const remove = product => ({ type: REMOVE_FROM_CART, product });
 const update = product => ({ type: UPDATE_CART, product });
+const purchase = product => ({ type: PURCHASE_CART, product });
 
 /**
  * THUNK CREATORS
@@ -45,19 +47,26 @@ export const addToCart = product => dispatch =>
   axios
     .put(`/api/carts/`, product)
     .then(res => dispatch(add(res.data || defaultState)))
+    .then(() => dispatch(fetchCart()))
     .catch(err => console.error(err))
-    .then(() => dispatch(fetchCart()));
 
 export const removeItemFromCart = product => dispatch =>
   axios
     .put(`/api/carts/delete`, product)
     .then(res => dispatch(remove(res.data || defaultState)))
+    .then(() => dispatch(fetchCart()))
     .catch(err => console.error(err))
-    .then(() => dispatch(fetchCart()));
 
 export const updateCart = product => dispatch =>
   axios
     .put(`/api/carts/update`, product)
+    .then(() => dispatch(fetchCart()))
+    .catch(err => console.error(err))
+
+    export const purchaseCart = product => dispatch =>
+  axios
+    .put(`/api/carts/purchase`, product)
+    .then(res => dispatch(purchase(res.data || defaultState)))
     .then(() => dispatch(fetchCart()))
     .catch(err => console.error(err))
 
@@ -86,6 +95,11 @@ export default function(state = defaultState, action) {
         ...state,
         products: action.product,
       };
+      case PURCHASE_CART:
+      return {
+        ...state,
+        products: action.products
+      }
     default:
       return state;
   }

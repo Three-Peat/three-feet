@@ -8,11 +8,24 @@ router.get('/', (req, res, next) => {
     Cart.findOrCreate({
       where: {
         userId,
+        purchased: false,
       },
       include: [{ model: Product }],
     })
-      .then(cart => {
-        res.json(cart);
+      .then(result => {
+        if (req.session.cart) {
+          const userCart = [...Object.values(req.session.cart)]
+          const [ cart ] = result
+          userCart.map(product => {
+            console.log(cart.id)
+            ProductCart.upsert({
+              quantity: product.quantity,
+              productId: product.id,
+              cartId: cart.id
+            })
+          })
+        }
+        res.json(result);
       })
       .catch(next);
   } else {
@@ -109,3 +122,16 @@ router.put('/delete', (req, res, next) => {
     }
   }
 });
+
+router.put('/purchase', (req, res, next) => {
+  Cart.update({
+    where: {
+      id: req.user.id
+    }
+  }, { where: {
+    purchased: true
+  }
+  })
+  .then(result => res.json(result))
+  .catch(next)
+})
