@@ -3,7 +3,7 @@ const User = require('../db/models/user')
 module.exports = router
 
 router.post('/login', (req, res, next) => {
-  User.findOne({where: {email: req.body.email}})
+  User.findOne({ where: { email: req.body.email } })
     .then(user => {
       if (!user) {
         console.log('No such user found:', req.body.email)
@@ -29,6 +29,16 @@ router.post('/signup', (req, res, next) => {
       } else {
         next(err)
       }
+    })
+})
+
+router.put('/reset', (req, res, next) => {
+  const { password, id } = req.body
+  const needsPassword = false
+  User.findById(id)
+  .then(user => user.update({ password, needsPassword }))
+  .then(user => {
+      req.login(user, err => (err ? next(err) : res.json(user)))
     })
 })
 
