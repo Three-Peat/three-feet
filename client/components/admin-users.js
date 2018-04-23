@@ -15,7 +15,12 @@ export class Admin extends Component {
 
   deleteUser = targetUser => {
     const { user } = this.props
-    axios.delete(`/api/admin/users/${targetUser.id}`, {data: user})
+    axios.delete(`/api/admin/users/${targetUser.id}`, { data: user })
+  }
+
+  resetPassword = targetUser => {
+    const { user } = this.props
+    axios.post(`/api/admin/users/${targetUser.id}`, user)
   }
 
   render() {
@@ -26,12 +31,15 @@ export class Admin extends Component {
           return (
             <div key={user.id}>
               <p>{user.email}</p>
+              <button onClick={() => this.resetPassword(user)}>
+                Reset Password
+                </button>
               <button onClick={() => this.makeAdmin(user)}>
                 Make Admin
-          </button>
+                </button>
               <button onClick={() => this.deleteUser(user)}>
                 Delete User
-          </button>
+                </button>
             </div>
           )
         })}

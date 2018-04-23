@@ -1,11 +1,24 @@
 const router = require('express').Router();
 const { User } = require('../db/models');
+const resetPassword = require('../auth/reset-password')
 module.exports = router;
 
 router.get('/users/:userId', (req, res, next) => {
   const id = req.params.userId
   User.findById(id)
     .then(user => res.json(user))
+    .catch(next);
+});
+
+router.post('/users/:userId', (req, res, next) => {
+  const id = req.params.userId
+  const needsPassword = true;
+  req.body.isAdmin && User.findById(id)
+    .then(user => {
+      resetPassword(user.email)
+      user.update({ needsPassword })
+      res.json(user)
+    })
     .catch(next);
 });
 
