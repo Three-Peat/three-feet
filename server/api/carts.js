@@ -74,7 +74,6 @@ router.put('/update', (req, res, next) => {
       .catch(next);
   } else {
     try {
-      console.log(req.body);
       const productId = req.body.id;
       let curQuant = req.session.cart[productId].quantity;
       const nextQuant = req.body.quantity;
@@ -92,7 +91,6 @@ router.put('/update', (req, res, next) => {
 
 router.put('/delete', (req, res, next) => {
   if (req.user) {
-    console.log(req.body);
     ProductCart.destroy({
       where: {
         productId: req.body.productId,
