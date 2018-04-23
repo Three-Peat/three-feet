@@ -17,7 +17,6 @@ router.get('/', (req, res, next) => {
           const userCart = [...Object.values(req.session.cart)]
           const [ cart ] = result
           userCart.map(product => {
-            console.log(cart.id)
             ProductCart.upsert({
               quantity: product.quantity,
               productId: product.id,
@@ -124,14 +123,18 @@ router.put('/delete', (req, res, next) => {
 });
 
 router.put('/purchase', (req, res, next) => {
-  Cart.update({
-    where: {
-      id: req.user.id
-    }
-  }, { where: {
-    purchased: true
-  }
+  console.log('in here')
+  console.log(req.user.id)
+  Cart.find({
+   where: {
+     userId: req.user.id,
+     purchased: false
+   }
   })
-  .then(result => res.json(result))
+  .then(cart => {
+    console.log(cart)
+    cart.update({purchased: true})
+    res.json(cart)
+  })
   .catch(next)
 })

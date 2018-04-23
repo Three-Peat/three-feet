@@ -8,11 +8,9 @@ const PlaceOrder = props => {
   const handleSubmit = event => {
     event.preventDefault();
 
-    const { createOrder, clearCart } = props;
+    const { createOrder, clearCart, purchase } = props;
     const shoeList = props.products.products;
     createOrder(shoeList);
-    clearCart();
-    purchase();
   };
 
   return (
@@ -39,7 +37,7 @@ const mapDispatch = dispatch => {
     },
     purchase: cart => {
       dispatch(purchaseCart(cart))
-    }
+    },
     clearCart: () => {
       dispatch(emptyCart());
     },

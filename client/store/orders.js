@@ -1,5 +1,6 @@
 import axios from 'axios';
 import history from '../history';
+import { purchaseCart, emptyCart, fetchCart } from '.';
 
 /**
  * ACTION TYPES
@@ -40,9 +41,11 @@ export const fetchOrders = () => dispatch =>
     .catch(err => console.error(err));
 
 export const buildOrder = cart => dispatch => {
+  console.log('we are in build orders')
   axios
     .post(`/api/orders/`, cart)
     .then(res => dispatch(createOrder(res.data || defaultState)))
+    // .then(() => dispatch(purchaseCart()))
     .catch(err => console.error(err));
 };
 

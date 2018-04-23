@@ -63,12 +63,14 @@ export const updateCart = product => dispatch =>
     .then(() => dispatch(fetchCart()))
     .catch(err => console.error(err))
 
-    export const purchaseCart = product => dispatch =>
-  axios
-    .put(`/api/carts/purchase`, product)
-    .then(res => dispatch(purchase(res.data || defaultState)))
-    .then(() => dispatch(fetchCart()))
-    .catch(err => console.error(err))
+    export const purchaseCart = product => dispatch => {
+      console.log('we are in carts store')
+      axios
+        .put(`/api/carts/purchase`, product)
+        .then(res => dispatch(purchase(res.data || defaultState)))
+        // .then(() => dispatch(fetchCart()))
+        .catch(err => console.error(err))
+    }
 
 
 /**
