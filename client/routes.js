@@ -16,9 +16,10 @@ import {
   AdminUsers,
   AdminProducts,
   AdminIndex,
+  AdminOrders,
   PasswordReset
 } from './components';
-import { me, fetchCart, fetchProducts, fetchCategories, fetchUsers } from './store';
+import { me, fetchCart, fetchProducts, fetchCategories, fetchUsers, fetchOrders } from './store';
 
 class Routes extends Component {
   componentDidMount() {
@@ -53,6 +54,7 @@ class Routes extends Component {
                     <Route exact path="/admin" component={AdminIndex} />
                     <Route path="/admin/products/" component={AdminProducts} />
                     <Route path="/admin/users/" component={AdminUsers} />
+                    <Route path="/admin/orders/" component={AdminOrders} />
                     {/* Routes placed here are only available after logging in as an admin */}
                   </Switch>
                 )}
@@ -87,6 +89,7 @@ const mapDispatch = dispatch => {
           dispatch(fetchProducts());
           dispatch(fetchCategories());
           dispatch(fetchUsers());
+          dispatch(fetchOrders())
         },
       };
     };

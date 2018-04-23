@@ -38,7 +38,7 @@ export const fetchOrder = orderId => dispatch =>
 export const fetchOrders = () => dispatch =>
   axios
     .get(`/api/orders`)
-    .then(res => dispatch(fetchOrders(res.data || defaultState)))
+    .then(res => dispatch(getOrders(res.data || defaultState)))
     .catch(err => console.error(err));
 
 export const buildOrder = cart => dispatch => {

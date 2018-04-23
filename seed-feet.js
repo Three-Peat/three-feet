@@ -101,6 +101,12 @@ for (let i = 0; i < 10; i++) {
   data.user.push(user);
 }
 
+data.user.push({
+  email: `admin@admin.com`,
+  password: `admin`,
+  isAdmin: true,
+})
+
 for (let i = 0; i < 10; i++) {
   const cart = {
     purchased: faker.random.boolean(),

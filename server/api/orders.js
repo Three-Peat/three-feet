@@ -1,9 +1,15 @@
 const router = require('express').Router();
 const { Product, Review, OrderItem, Order } = require('../db/models');
+const sendEmail = require('./status-emails')
+
 module.exports = router;
 
 router.get('/', (req, res, next) => {
-  Order.findAll()
+  Order.findAll({
+    include: {
+      model: OrderItem,
+    }
+  })
     .then(orders => res.json(orders))
     .catch(next);
 });
@@ -43,3 +49,18 @@ router.post('/', (req, res, next) => {
     })
     .catch(next);
 });
+
+router.put('/:orderId', (req, res, next) => {
+  const id = req.params.orderId
+  const { status, email } = req.body
+  sendEmail(email, id, status)
+  Order.update({ status }, {
+    where: {
+      id
+    }
+  })
+    .then(orders => {
+      res.json(orders);
+    })
+    .catch(next);
+})
