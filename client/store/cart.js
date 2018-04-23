@@ -43,13 +43,15 @@ export const addToCart = product => dispatch =>
   axios
     .put(`/api/carts/`, product)
     .then(res => dispatch(add(res.data || defaultState)))
-    .catch(err => console.error(err));
+    .catch(err => console.error(err))
+    .then(() => dispatch(fetchCart()));
 
 export const removeItemFromCart = product => dispatch =>
   axios
     .put(`/api/carts/delete`, product)
     .then(res => dispatch(remove(res.data || defaultState)))
-    .catch(err => console.error(err));
+    .catch(err => console.error(err))
+    .then(() => dispatch(fetchCart()));
 
 /**
  * REDUCER
@@ -66,8 +68,8 @@ export default function(state = defaultState, action) {
     case REMOVE_FROM_CART:
       return {
         ...state,
-        products: action.product
-      }
+        products: action.product,
+      };
     case EMPTY_CART:
       return defaultState;
     default:
