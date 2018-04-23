@@ -27,7 +27,6 @@ router.post('/', (req, res, next) => {
     .then(order => {
       const orderId = order.dataValues.id;
       orderedItems = orderedItems.map(item => {
-        // console.log(item);
         return {
           productId: item.id,
           price: item.price,
