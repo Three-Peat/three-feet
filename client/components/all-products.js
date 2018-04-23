@@ -44,14 +44,16 @@ export class AllProducts extends Component {
           handleChange={this.handleChange}
           inputValue={inputValue}
         />
-        {filteredProducts.map(product => {
-          return (
-            <div key={product.id}>
-              <SingleProduct product={product} />
-              <AddToCart product={product} />
-            </div>
-          )
-        })}
+        <div className="all-products">
+          {filteredProducts.map(product => {
+            if (product.inventory > 0) return (
+              <div className="single-item" key={product.id} >
+                <SingleProduct product={product} />
+                <AddToCart product={product} />
+              </div>
+            )
+          })}
+        </div>
       </div>
     );
   }

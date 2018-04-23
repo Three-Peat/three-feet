@@ -43,10 +43,9 @@ class CreateProductReview extends Component {
         reviews && (rating = calcRating(reviews))
         reviews && (reviews = reviews.slice(0).reverse())
         return (
-            <div style={{ border: `3px solid black`, margin: `10px` }}>
+            <div className="write-review">
                 Write a review!
             <form name="review-form" onSubmit={this.handleSubmit}>
-                    Title: <input type="text" name="name" onChange={this.handleChange} /><br />
                     Rating: <select name="rating" onChange={this.handleChange}>
                         <option>5</option>
                         <option>4</option>
@@ -54,7 +53,8 @@ class CreateProductReview extends Component {
                         <option>2</option>
                         <option>1</option>
                     </select><br />
-                    Review: <input type="text" name="description" onChange={this.handleChange} /><br />
+                    <input placeholder="Title" type="text" name="name" onChange={this.handleChange} /><br />
+                    <input placeholder="Review" type="text" name="description" onChange={this.handleChange} /><br />
                     <input type="submit" value="Submit" />
                 </form>
             </div>
