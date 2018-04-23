@@ -38,7 +38,9 @@ export class ProductDetail extends Component {
     return (
       <div className="product-detail">
         <h2>{`${brand} - ${name}`}</h2>
-        <img src={photoUrl} alt="shoe" />
+        <div className="shoe-img">
+          <img src={photoUrl} alt="shoe" />
+        </div>
         <div className="product-info">
           <p>{'$' + price / 100}</p>
           <p>{description}</p>

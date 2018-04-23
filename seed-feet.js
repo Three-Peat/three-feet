@@ -43,7 +43,9 @@ for (let i = 0; i < 10; i++) {
   data.order.push(order);
 }
 
-for (let i = 0; i < 20; i++) {
+
+
+for (let i = 0; i < 40; i++) {
   const product = {
     name: faker.commerce.productName(),
     description: faker.company.bs(),
@@ -52,7 +54,9 @@ for (let i = 0; i < 20; i++) {
     brand: faker.company.companyName(),
     size: faker.random.number({ min: 6, max: 15 }),
     color: faker.commerce.color(),
-    photoUrl: `/shoe-icon.png`,
+    photoUrl: i % 2 === 0
+    ? `https://image.flaticon.com/icons/svg/360/${360178 + i}.svg`
+    : `https://image.flaticon.com/icons/svg/358/${358408 + i}.svg`,
   };
   data.product.push(product);
 }
