@@ -32,7 +32,7 @@ export class AllProducts extends Component {
   render() {
     const products = this.props.products.allProducts;
     const inputValue = this.state.inputValue.toLowerCase();
-    const filteredProducts = products.filter(product => {
+    const filteredProducts = products.slice().reverse().filter(product => {
       return (
         product.name.toLowerCase().match(inputValue) ||
         product.brand.toLowerCase().match(inputValue)
