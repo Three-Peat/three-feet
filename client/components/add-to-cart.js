@@ -7,7 +7,6 @@ class AddToCart extends Component {
     const { addProductToCart, cart, user, getCart } = this.props;
     const selectedId = this.props.product.id;
 
-    // this is dumb, please fix. I always want getcart after adding to cart finishes
     if (user.id) {
       const cartId = cart.products[0].id;
       addProductToCart({
