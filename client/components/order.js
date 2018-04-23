@@ -1,15 +1,18 @@
 import React from 'react';
 import { buildOrder } from '../store/orders';
-import { purchaseCart } from '../store';
+import { purchaseCart, emptyCart } from '../store';
+
 import { connect } from 'react-redux';
 
 const PlaceOrder = props => {
   const handleSubmit = event => {
     event.preventDefault();
-    const { createOrder, purchase } = props;
+
+    const { createOrder, clearCart } = props;
     const shoeList = props.products.products;
     createOrder(shoeList);
-    purchase()
+    clearCart();
+    purchase();
   };
 
   return (
@@ -25,6 +28,7 @@ const mapState = state => {
   return {
     shoes: state.products,
     user: state.user,
+    cart: state.cart,
   };
 };
 
@@ -36,6 +40,9 @@ const mapDispatch = dispatch => {
     purchase: cart => {
       dispatch(purchaseCart(cart))
     }
+    clearCart: () => {
+      dispatch(emptyCart());
+    },
   };
 };
 

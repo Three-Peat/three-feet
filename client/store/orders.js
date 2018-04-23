@@ -7,7 +7,6 @@ import history from '../history';
 const GET_ORDER = 'GET_ORDER';
 const GET_ORDERS = 'GET_ORDERS';
 const POST_ORDER = 'POST_ORDER';
-const POST_ORDER_ITEM = 'POST_ORDER_ITEM';
 
 /**
  * INITIAL STATE
@@ -24,7 +23,6 @@ const defaultState = {
 const getOrder = order => ({ type: GET_ORDER, order });
 const getOrders = orders => ({ type: GET_ORDERS, orders });
 const createOrder = order => ({ type: POST_ORDER, order });
-// const createOrderItems = orderItems => ({type: POST_ORDER_ITEM, orderItems});
 
 /**
  * THUNK CREATORS
@@ -38,7 +36,7 @@ export const fetchOrder = orderId => dispatch =>
 export const fetchOrders = () => dispatch =>
   axios
     .get(`/api/orders`)
-    .then(res => dispatch(fetchOrders(res.data || defaultState)))
+    .then(res => dispatch(getOrders(res.data || defaultState)))
     .catch(err => console.error(err));
 
 export const buildOrder = cart => dispatch => {
@@ -47,8 +45,6 @@ export const buildOrder = cart => dispatch => {
     .then(res => dispatch(createOrder(res.data || defaultState)))
     .catch(err => console.error(err));
 };
-
-// export const buildOrderItems =
 
 /**
  * REDUCER
