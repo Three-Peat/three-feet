@@ -47,7 +47,7 @@ for (let i = 0; i < 10; i++) {
 
 for (let i = 0; i < 40; i++) {
   const product = {
-    name: faker.commerce.productName(),
+    name: `${faker.commerce.productAdjective()} ${faker.commerce.productMaterial()} Shoe`,
     description: faker.company.bs(),
     price: faker.random.number({ min: 99, max: 50000 }),
     inventory: faker.random.number({ min: 0, max: 50 }),

@@ -34,6 +34,7 @@ form div {
 .single-product img {
   height: 150px;
   width: 150px;
+  margin: 5px;
 }
 
 .single-product p {
