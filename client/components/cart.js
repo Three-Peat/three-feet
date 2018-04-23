@@ -56,10 +56,6 @@ const mapDispatch = dispatch => {
     getCart: cart => {
       dispatch(fetchCart(cart));
     },
-    // Going to need this eventually
-    // removeFromCart: product => {
-    //   dispatch(removeFromCart(product));
-    // },
   };
 };
 
