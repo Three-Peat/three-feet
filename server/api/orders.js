@@ -30,6 +30,7 @@ router.post('/', (req, res, next) => {
         return {
           productId: item.id,
           price: item.price,
+          quantity: item.productCart.quantity,
         };
       });
       orderedItems = orderedItems.map(item => {

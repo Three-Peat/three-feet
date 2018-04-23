@@ -12,13 +12,21 @@ const OrderItem = db.define('orderItem', {
   price: {
     type: Sequelize.INTEGER,
   },
+  quantity: {
+    type: Sequelize.INTEGER,
+    defaultValue: 1,
+    validate: {
+      min: 1,
+    },
+  },
 });
 
 OrderItem.afterCreate('updateInventory', function(item) {
+  const quantityPurchased = item.quantity;
   const myId = item.dataValues.productId;
   return Product.findById(myId)
     .then(foundItem => {
-      foundItem.decrement('inventory');
+      foundItem.decrement('inventory', { by: quantityPurchased });
     })
     .catch(err => console.error(err));
 });
