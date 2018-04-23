@@ -6,7 +6,7 @@ import axios from 'axios'
 /**
  * COMPONENT
  */
-export class Admin extends Component {
+export class AdminUsers extends Component {
 
   makeAdmin = targetUser => {
     const { user } = this.props
@@ -57,7 +57,7 @@ const mapDispatch = dispatch => {
   return {}
 };
 
-export default connect(mapState, mapDispatch)(Admin);
+export default connect(mapState, mapDispatch)(AdminUsers);
 
 /**
  * PROP TYPES
