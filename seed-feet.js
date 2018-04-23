@@ -43,16 +43,20 @@ for (let i = 0; i < 10; i++) {
   data.order.push(order);
 }
 
-for (let i = 0; i < 20; i++) {
+
+
+for (let i = 0; i < 40; i++) {
   const product = {
-    name: faker.commerce.productName(),
+    name: `${faker.commerce.productAdjective()} ${faker.commerce.productMaterial()} Shoe`,
     description: faker.company.bs(),
     price: faker.random.number({ min: 99, max: 50000 }),
     inventory: faker.random.number({ min: 0, max: 50 }),
     brand: faker.company.companyName(),
     size: faker.random.number({ min: 6, max: 15 }),
     color: faker.commerce.color(),
-    photoUrl: `/shoe-icon.png`,
+    photoUrl: i % 2 === 0
+    ? `https://image.flaticon.com/icons/svg/360/${360178 + i}.svg`
+    : `https://image.flaticon.com/icons/svg/358/${358408 + i}.svg`,
   };
   data.product.push(product);
 }

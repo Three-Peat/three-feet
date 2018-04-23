@@ -17,8 +17,8 @@ const SingleProduct = props => {
         </div>
         <div className="info">
           <p>{name}</p>
-          <p>${price / 100}</p>
           <p>{brand}</p>
+          <p>${price / 100}</p>
           <p>{inventory} in stock</p>
         </div>
       </Link>

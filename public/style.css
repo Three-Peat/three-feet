@@ -34,6 +34,7 @@ form div {
 .single-product img {
   height: 150px;
   width: 150px;
+  margin: 5px;
 }
 
 .single-product p {
@@ -51,7 +52,7 @@ form div {
   justify-content: center;
   border: solid black 1px;
   margin: 3px;
-  background-color: rgb(200, 200, 200);
+  background-color: white;
 }
 
 /* ALL_PRODUCTS */
@@ -120,10 +121,21 @@ form div {
   margin: 3px;
 }
 
-.product-detail img {
-  background-color: rgb(200, 200, 200);
+.product-detail .shoe-img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
   border: solid black 1px;
   margin: 5px;
+  width: 350px;
+  height: 300px;
+}
+
+.product-detail img {
+  margin: 5px;
+  width: 250px;
+  height: 250px;
 }
 
 .product-detail p {
