@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchCart } from '../store';
 import { Link } from 'react-router-dom';
+import RemoveFromCart from './remove-from-cart'
 
 export class Cart extends Component {
   componentDidMount = () => {
@@ -32,7 +33,12 @@ export class Cart extends Component {
                 <p>{product.name}</p>
                 <p>{product.price}</p>
                 <p>{product.brand}</p>
-                <p>Quantity: {product.quantity}</p>
+                {user.id ? (
+                  <p>Quantity: {product.productCart.quantity}</p>
+                ) : (
+                  <p>Quantity: {product.quantity}</p>
+                )}
+                <RemoveFromCart product={product} />
               </div>
             );
           })}

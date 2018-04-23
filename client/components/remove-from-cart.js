@@ -1,23 +1,25 @@
 import React, { Component } from 'react';
-import { addToCart, fetchCart } from '../store';
+import { removeItemFromCart, fetchCart } from '../store';
 import { connect } from 'react-redux';
 
-class AddToCart extends Component {
+class RemoveFromCart extends Component {
   handleAddToCart = () => {
-    const { addProductToCart, cart, user, getCart } = this.props;
+    const { removeProductFromCart, cart, user, getCart } = this.props;
     const selectedId = this.props.product.id;
+    const {products} = cart
 
-    // this is dumb, please fix. I always want getcart after adding to cart finishes
     if (user.id) {
-      const cartId = cart.products[0].id;
-      addProductToCart({
+      const cartId = products[0].id;
+      removeProductFromCart({
         productId: selectedId,
         cartId: cartId,
       });
-      setTimeout(getCart, 50);
+      getCart()
     } else {
       const { product } = this.props;
-      addProductToCart(product);
+      console.log(product)
+      removeProductFromCart(product);
+      setTimeout(getCart, 50);
     }
   };
 
@@ -25,7 +27,7 @@ class AddToCart extends Component {
     return (
       <div>
         <button type="submit" onClick={this.handleAddToCart}>
-          Add to Cart
+          Remove Item
         </button>
       </div>
     );
@@ -39,8 +41,8 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    addProductToCart: product => {
-      dispatch(addToCart(product));
+    removeProductFromCart: product => {
+      dispatch(removeItemFromCart(product));
     },
     getCart: cart => {
       dispatch(fetchCart(cart));
@@ -48,4 +50,4 @@ const mapDispatch = dispatch => {
   };
 };
 
-export default connect(mapState, mapDispatch)(AddToCart);
+export default connect(mapState, mapDispatch)(RemoveFromCart);

@@ -7,6 +7,7 @@ import history from '../history';
 const GET_CART = 'GET_CART';
 const ADD_TO_CART = 'ADD_TO_CART';
 const EMPTY_CART = 'EMPTY_CART';
+const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
 /**
  * INITIAL STATE
  */
@@ -21,6 +22,7 @@ const defaultState = {
 const get = cart => ({ type: GET_CART, cart });
 const empty = cart => ({ type: EMPTY_CART, cart });
 const add = product => ({ type: ADD_TO_CART, product });
+const remove = product => ({ type: REMOVE_FROM_CART, product });
 
 /**
  * THUNK CREATORS
@@ -43,6 +45,12 @@ export const addToCart = product => dispatch =>
     .then(res => dispatch(add(res.data || defaultState)))
     .catch(err => console.error(err));
 
+export const removeItemFromCart = product => dispatch =>
+  axios
+    .put(`/api/carts/delete`, product)
+    .then(res => dispatch(remove(res.data || defaultState)))
+    .catch(err => console.error(err));
+
 /**
  * REDUCER
  */
@@ -55,6 +63,11 @@ export default function(state = defaultState, action) {
         ...state,
         products: action.product,
       };
+    case REMOVE_FROM_CART:
+      return {
+        ...state,
+        products: action.product
+      }
     case EMPTY_CART:
       return defaultState;
     default:
