@@ -6,6 +6,7 @@ const Category = require('./category');
 const Order = require('./order');
 const Review = require('./review');
 const OrderItem = require('./order-item');
+const ProductCart = require('./product-cart');
 const db = require('../db')
 
 /*---------------- ASSOCIATIONS ----------------*/
@@ -32,14 +33,14 @@ Order.belongsTo(Address);
 Cart.belongsTo(User);
 
 // PRODUCT ASSOCIATIONS
-Product.belongsToMany(Cart, { through: 'productCart' });
-Cart.belongsToMany(Product, { through: 'productCart' });
+Product.belongsToMany(Cart, { through: ProductCart });
+Cart.belongsToMany(Product, { through: ProductCart });
 Product.belongsToMany(Category, { through: 'productCategory' });
 Category.belongsToMany(Product, { through: 'productCategory' });
 Product.hasMany(Review);
 
 const productCategory = db.model(`productCategory`)
-const ProductCart = db.model('productCart')
+// const ProductCart = db.model('productCart')
 
 
 module.exports = {
