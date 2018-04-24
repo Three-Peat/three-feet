@@ -24,6 +24,7 @@ router.get('/', (req, res, next) => {
             })
           })
         }
+        delete req.session.cart
         res.json(result);
       })
       .catch(next);
@@ -80,7 +81,7 @@ router.put('/update', (req, res, next) => {
         const curCart = cart.dataValues.quantity
         const nextCart = req.body.productCart.quantity
         if (curCart < nextCart) cart.increment('quantity')
-        else cart.decrement('quantity')
+        else if (nextCart !== 1) cart.decrement('quantity')
       })
       .then(cart => res.json(cart))
       .catch(next);
@@ -91,7 +92,7 @@ router.put('/update', (req, res, next) => {
       const nextQuant = req.body.quantity;
       if (curQuant < nextQuant) {
         req.session.cart[productId].quantity++;
-      } else {
+      } else if (nextQuant !== 0) {
         req.session.cart[productId].quantity--;
       }
       res.json(req.session.cart);
@@ -103,13 +104,18 @@ router.put('/update', (req, res, next) => {
 
 router.put('/delete', (req, res, next) => {
   if (req.user) {
+    if (req.session.cart) {
+      delete req.session.cart
+    }
     ProductCart.destroy({
       where: {
         productId: req.body.productId,
         cartId: req.body.cartId,
       },
     })
-      .then(cart => res.json(cart))
+      .then(result => {
+        res.json(result)
+      })
       .catch(next);
   } else {
     try {
@@ -123,8 +129,6 @@ router.put('/delete', (req, res, next) => {
 });
 
 router.put('/purchase', (req, res, next) => {
-  console.log('in here')
-  console.log(req.user.id)
   Cart.find({
    where: {
      userId: req.user.id,
@@ -132,7 +136,6 @@ router.put('/purchase', (req, res, next) => {
    }
   })
   .then(cart => {
-    console.log(cart)
     cart.update({purchased: true})
     res.json(cart)
   })

@@ -41,11 +41,13 @@ export const fetchOrders = () => dispatch =>
     .catch(err => console.error(err));
 
 export const buildOrder = cart => dispatch => {
-  console.log('we are in build orders')
   axios
     .post(`/api/orders/`, cart)
-    .then(res => dispatch(createOrder(res.data || defaultState)))
-    // .then(() => dispatch(purchaseCart()))
+    .then(res => {
+      dispatch(createOrder(res.data || defaultState))
+      history.push('/home')
+    })
+    .then(() => dispatch(purchaseCart()))
     .catch(err => console.error(err));
 };
 

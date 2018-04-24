@@ -8,7 +8,6 @@ class AddToCart extends Component {
     const selectedId = this.props.product.id;
 
     if (user.id && cart.products[0] !== undefined) {
-      console.log(cart)
       const cartId = cart.products[0].id;
       addProductToCart({
         productId: selectedId,

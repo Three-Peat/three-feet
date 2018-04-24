@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchCart, updateCart, purchaseCart } from '../store';
-import { Link } from 'react-router-dom';
-import RemoveFromCart from './remove-from-cart'
-import SingleProduct from './single-product'
+import { Link, withRouter } from 'react-router-dom';
+import RemoveFromCart from './remove-from-cart';
+import SingleProduct from './single-product';
 import PlaceOrder from './order';
 
-
 export class Cart extends Component {
+  componentDidMount() {
+    const { getCart } = this.props;
+    getCart()
+  }
+
   increaseQuantity = prod => {
     const { updateCartQuantity } = this.props;
     if (prod.quantity) prod.quantity++;
@@ -25,7 +29,7 @@ export class Cart extends Component {
   render() {
     const { cart, user } = this.props;
     let userCart;
-    if (user.id && cart.products[0] !== undefined) {
+    if (user.id && cart.products[0]) {
       userCart = cart.products[0].products;
     } else {
       userCart = [...Object.values(cart.products)];
@@ -42,21 +46,20 @@ export class Cart extends Component {
                   {user.id ? (
                     <p>Quantity: {product.productCart.quantity}</p>
                   ) : (
-                      <p>Quantity: {product.quantity}</p>
-                    )}
-                <button onClick={evt => this.decreaseQuantity(product, evt)}>
-                  -1
-                </button>
-                <button onClick={evt => this.increaseQuantity(product, evt)}>
-                  +1
-                </button>
-                <RemoveFromCart product={product} />
+                    <p>Quantity: {product.quantity}</p>
+                  )}
+                  <button onClick={evt => this.decreaseQuantity(product, evt)}>
+                    -1
+                  </button>
+                  <button onClick={evt => this.increaseQuantity(product, evt)}>
+                    +1
+                  </button>
+                  <RemoveFromCart product={product} />
                 </div>
-
               </div>
             );
           })}
-        <PlaceOrder products={cart.products[0]} />
+        {user.id && <PlaceOrder products={cart.products[0]} />}
       </div>
     );
   }
@@ -77,4 +80,4 @@ const mapDispatch = dispatch => {
   };
 };
 
-export default connect(mapState, mapDispatch)(Cart);
+export default withRouter(connect(mapState, mapDispatch)(Cart));

@@ -54,7 +54,6 @@ export const removeItemFromCart = product => dispatch =>
   axios
     .put(`/api/carts/delete`, product)
     .then(res => dispatch(remove(res.data || defaultState)))
-    .then(() => dispatch(fetchCart()))
     .catch(err => console.error(err))
 
 export const updateCart = product => dispatch =>
@@ -64,11 +63,12 @@ export const updateCart = product => dispatch =>
     .catch(err => console.error(err))
 
     export const purchaseCart = product => dispatch => {
-      console.log('we are in carts store')
       axios
         .put(`/api/carts/purchase`, product)
-        .then(res => dispatch(purchase(res.data || defaultState)))
-        // .then(() => dispatch(fetchCart()))
+        .then(res => {
+          dispatch(purchase(res.data || defaultState))
+        })
+        .then(() => dispatch(fetchCart()))
         .catch(err => console.error(err))
     }
 
