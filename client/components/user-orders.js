@@ -24,7 +24,6 @@ export class UserOrders extends Component {
       <div className="my-orders">
       <h1>My Orders</h1>
         {allOrders && allOrders.filter(order => order.userId === user.id).map(order => {
-          console.log(order)
           return (
             <div key={order.id}>
               <h3>{`Order ${order.id}`}</h3>

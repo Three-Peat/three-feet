@@ -4,7 +4,9 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { logout, emptyCart } from '../store'
 
-const Navbar = ({ handleClick, isLoggedIn, isAdmin }) => (
+const Navbar = ({ handleClick, isLoggedIn, isAdmin, cart }) => {
+  const cartSize = Object.keys(cart.products).length > 0 ? `(${Object.keys(cart.products).length})` : ''
+  return (
   <div className="navbar">
     <nav>
       {isLoggedIn ? (
@@ -15,7 +17,7 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin }) => (
             <Link to="/orders">Orders</Link>
             <Link to="/products">Shoes</Link>
             <Link to="/categories">Categories</Link>
-            <Link to="/cart">My Cart</Link>
+            <Link to="/cart">{`My Cart ${cartSize}`}</Link>
             <Link to="/admin">Admin</Link>
             <a href="#" onClick={handleClick}>
               Logout
@@ -28,7 +30,7 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin }) => (
               <Link to="/orders">Orders</Link>
               <Link to="/products">Shoes</Link>
               <Link to="/categories">Categories</Link>
-              <Link to="/cart">My Cart</Link>
+              <Link to="/cart">{`My Cart ${cartSize}`}</Link>
               <a href="#" onClick={handleClick}>
                 Logout
               </a>
@@ -40,7 +42,7 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin }) => (
             <Link id="title" to="/"> |||FEET </Link>
             <Link to="/products">Shoes</Link>
             <Link to="/categories">Categories</Link>
-            <Link to="/cart">My Cart</Link>
+            <Link to="/cart">{`My Cart ${cartSize}`}</Link>
             <Link to="/login">Login</Link>
             <Link to="/signup">Sign Up</Link>
           </div>
@@ -48,7 +50,7 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin }) => (
     </nav>
     <hr />
   </div>
-)
+)}
 
 /**
  * CONTAINER
@@ -56,7 +58,8 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin }) => (
 const mapState = state => {
   return {
     isLoggedIn: !!state.user.id,
-    isAdmin: !!state.user.isAdmin
+    isAdmin: !!state.user.isAdmin,
+    cart: state.cart
   }
 }
 
