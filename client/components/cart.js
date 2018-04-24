@@ -5,6 +5,7 @@ import { Link, withRouter } from 'react-router-dom';
 import RemoveFromCart from './remove-from-cart';
 import SingleProduct from './single-product';
 import PlaceOrder from './order';
+import AddressInput from './address-input';
 
 export class Cart extends Component {
   componentDidMount() {
@@ -42,7 +43,6 @@ export class Cart extends Component {
       <div>
         <h1 className="my-cart">My Cart</h1>
         {userCart.length === 0 && <h3>Your cart is empty</h3>}
-        {user.id &&  userCart.length > 0 && <PlaceOrder products={cart.products[0]} />}
         {!user.id && userCart.length > 0 && <h3>Please login to complete order</h3>}
 
         {userCart &&
@@ -67,13 +67,15 @@ export class Cart extends Component {
               </div>
             );
           })}
+        {user.id && <AddressInput />}
+        {user.id &&  userCart.length > 0 && <PlaceOrder products={cart.products[0]} />}
       </div>
     );
   }
 }
 const mapState = state => {
-  const { cart, user } = state;
-  return { cart, user };
+  const { cart, user, address } = state;
+  return { cart, user, address };
 };
 
 const mapDispatch = dispatch => {

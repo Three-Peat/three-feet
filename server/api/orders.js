@@ -24,9 +24,12 @@ router.get('/:orderId', (req, res, next) => {
 
 router.post('/', (req, res, next) => {
   const userId = req.session.passport.user;
-  let orderedItems = req.body;
+  let orderedItems = req.body.cart;
+  let { addressId } = req.body;
+
   return Order.create({
-    userId: userId,
+    userId,
+    addressId,
   })
     .then(order => {
       const orderId = order.dataValues.id;
@@ -50,16 +53,19 @@ router.post('/', (req, res, next) => {
 });
 
 router.put('/:orderId', (req, res, next) => {
-  const id = req.params.orderId
-  const { status, email } = req.body
-  sendEmail(email, id, status)
-  Order.update({ status }, {
-    where: {
-      id
+  const id = req.params.orderId;
+  const { status, email } = req.body;
+  sendEmail(email, id, status);
+  Order.update(
+    { status },
+    {
+      where: {
+        id,
+      },
     }
-  })
+  )
     .then(orders => {
       res.json(orders);
     })
     .catch(next);
-})
+});
