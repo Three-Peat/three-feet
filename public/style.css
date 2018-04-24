@@ -269,7 +269,7 @@ form div {
   color: black;
   background-color: lightblue;
   height: 25px;
-  width: 350px;
+  width: 500px;
   font-size: 18px;
 }
 
@@ -386,6 +386,25 @@ form div {
     margin: 5px
 }
 
+.my-orders p {
+    margin: 2px
+}
+
 .my-orders h1 {
     margin: 15px 3px;
 }
+
+/* ADMIN_ORDERS */
+
+.admin-orders {
+    margin: 5px
+}
+
+.admin-orders p {
+    margin: 2px
+}
+
+.admin-orders h1 {
+    margin: 15px 3px;
+}
+
