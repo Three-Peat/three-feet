@@ -19,6 +19,7 @@ import {
   AdminOrders,
   PasswordReset,
   AfterOrder,
+  UserOrders
 } from './components';
 import {
   me,
@@ -54,6 +55,7 @@ class Routes extends Component {
             <Switch>
               {/* Routes placed here are only available after logging in */}
               <Route path="/home" component={UserHome} />
+              <Route path="/orders" component={UserOrders} />
               <Route path="/reset" component={PasswordReset} />
               <Route path="/after-order" component={AfterOrder} />
               {isAdmin && (
