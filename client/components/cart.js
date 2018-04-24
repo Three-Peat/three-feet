@@ -17,7 +17,7 @@ export class Cart extends Component {
     if (prod.quantity && prod.inventory > prod.quantity) {
       prod.quantity++;
       updateCartQuantity(prod);
-    } else if (prod.inventory > prod.productCart.quantity) {
+    } else if (prod.productCart && prod.inventory > prod.productCart.quantity) {
       prod.quantity = prod.productCart.quantity++;
       updateCartQuantity(prod);
     }
