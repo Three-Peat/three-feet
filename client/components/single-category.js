@@ -5,6 +5,7 @@ import SingleProduct from './single-product';
 import { fetchCategory } from '../store'
 import axios from 'axios'
 import RemoveFromCategory from './remove-from-category';
+import AddToCart from './add-to-cart'
 
 class SingleCategory extends Component {
   componentDidMount = () => {
@@ -16,16 +17,19 @@ class SingleCategory extends Component {
   render() {
     const category = this.props.categories.selectedCategory
     return (
-      <div>
+      <div className="single-category-info">
         <h1>{`${category.name} (${category.products && category.products.length})`}</h1>
         <p>{category.description}</p>
-        {category.products && category.products.map(product => {
-          return (
-            <div key={product.id}>
-              <SingleProduct product={product} />
-            </div>
-          )
-        })}
+        <div className="single-category">
+          {category.products && category.products.map(product => {
+            return (
+              <div className="single-item" key={product.id}>
+                <SingleProduct product={product} />
+                <AddToCart product={product} />
+              </div>
+            )
+          })}
+        </div>
       </div>
     )
   }

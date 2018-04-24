@@ -14,10 +14,11 @@ class Categories extends Component {
     render() {
         const { allCategories } = this.props.categories
         return (
-            <div>
+            <div className="categories">
+            <h1>Browse Categories</h1>
                 {allCategories.map(category => {
                     return (
-                        <div key={category.id}>
+                        <div className="categories" key={category.id}>
                             <Link to={`/categories/${category.id}`}>{category.name} - {category.description}</Link>
                         </div>
                     )
