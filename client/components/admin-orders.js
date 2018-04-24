@@ -27,13 +27,14 @@ export class AdminOrders extends Component {
   render() {
     const { allOrders } = this.props.orders
     const { allProducts } = this.props.products
+    const { users } = this.props
     return (
       <div>
         {allOrders && allOrders.map(order => {
           const statuses = [`Created`, `Processing`, `Cancelled`, `Completed`]
           return (
             <div key={order.id}>
-              <h3>{`Order ${order.id}`}</h3>
+              <h3>{`Order ${order.id} - ${users.find(user => user.id === order.userId).email}`}</h3>
               Status: <select onChange={event => this.onChange(event, order)}>
                 {statuses.map(status => {
                   if (status === order.status) return (

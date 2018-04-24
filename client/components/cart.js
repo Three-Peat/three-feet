@@ -32,7 +32,8 @@ export class Cart extends Component {
     }
     return (
       <div>
-        <h2 className="my-cart">My Cart</h2>
+        <h1 className="my-cart">My Cart</h1>
+        <PlaceOrder products={cart.products[0]} />
         {userCart &&
           userCart.map(product => {
             return (
@@ -44,19 +45,18 @@ export class Cart extends Component {
                   ) : (
                       <p>Quantity: {product.quantity}</p>
                     )}
-                <button onClick={evt => this.decreaseQuantity(product, evt)}>
-                  -1
+                  <button onClick={evt => this.decreaseQuantity(product, evt)}>
+                    -1
                 </button>
-                <button onClick={evt => this.increaseQuantity(product, evt)}>
-                  +1
+                  <button onClick={evt => this.increaseQuantity(product, evt)}>
+                    +1
                 </button>
-                <RemoveFromCart product={product} />
+                  <RemoveFromCart product={product} />
                 </div>
 
               </div>
             );
           })}
-        <PlaceOrder products={cart.products[0]} />
       </div>
     );
   }

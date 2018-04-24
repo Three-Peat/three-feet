@@ -14,7 +14,7 @@ const PlaceOrder = props => {
   };
 
   return (
-    <div>
+    <div className="place-order">
       <button type="submit" onClick={handleSubmit}>
         Submit Order
       </button>

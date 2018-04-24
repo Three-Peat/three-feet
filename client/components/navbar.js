@@ -6,44 +6,41 @@ import { logout, emptyCart } from '../store'
 
 const Navbar = ({ handleClick, isLoggedIn, isAdmin }) => (
   <div className="navbar">
-    <h1>3FEET</h1>
     <nav>
       {isLoggedIn ? (
         isAdmin ? (
           <div>
             {/* The navbar will show these links after you log in if you are an admin */}
-            <Link to="/home">Home</Link>
-            <a href="#" onClick={handleClick}>
-              Logout
-            </a>
+            <Link id="title" to="/home">3|||FEET </Link>
             <Link to="/products">Shoes</Link>
             <Link to="/categories">Categories</Link>
             <Link to="/cart">My Cart</Link>
-            <Link to="/reviews">Reviews</Link>
             <Link to="/admin">Admin</Link>
+            <a href="#" onClick={handleClick}>
+              Logout
+            </a>
           </div>
         ) : (
             <div>
               {/* The navbar will show these links after you log in */}
-              <Link to="/home">Home</Link>
-              <a href="#" onClick={handleClick}>
-                Logout
-              </a>
+              <Link id="title" to="/home">3|||FEET </Link>
               <Link to="/products">Shoes</Link>
               <Link to="/categories">Categories</Link>
               <Link to="/cart">My Cart</Link>
-              <Link to="/reviews">Reviews</Link>
+              <a href="#" onClick={handleClick}>
+                Logout
+              </a>
             </div>
           )
       ) : (
           <div>
             {/* The navbar will show these links before you log in */}
-            <Link to="/login">Login</Link>
-            <Link to="/signup">Sign Up</Link>
+            <Link id="title" to="/">3|||FEET </Link>
             <Link to="/products">Shoes</Link>
             <Link to="/categories">Categories</Link>
             <Link to="/cart">My Cart</Link>
-            <Link to="/reviews">Reviews</Link>
+            <Link to="/login">Login</Link>
+            <Link to="/signup">Sign Up</Link>
           </div>
         )}
     </nav>

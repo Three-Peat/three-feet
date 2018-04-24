@@ -74,7 +74,7 @@ form div {
 
 /* ADD_TO_CART */
 
-.all-products .add-to-cart {
+.add-to-cart {
   margin: 5px;
 }
 
@@ -93,7 +93,7 @@ form div {
 /* SEARCH_PRODUCTS */
 
 .search-products input {
-  margin: 3px;
+  margin: 0 3px 5px 3px;
   height: 40px;
   width: 456px;
   font-size: 18px;
@@ -102,12 +102,28 @@ form div {
 
 /* NAVBAR */
 
+#title {
+  display: inline;
+  margin: 0 10px;
+  box-shadow: 3px 3px 2px black;
+  font-size: 24px;
+  font-weight: 1000;
+}
+
 .navbar nav {
-  background-color: black;
+  background-color: lightblue;
 }
 
 .navbar a {
-  color: white;
+  padding: 5px;
+  border: solid black 1px;
+  border-radius: 10px;
+  color: black;
+  background-color: rgb(125, 200, 225);
+}
+
+.navbar a:hover {
+  background-color: grey
 }
 
 /* PRODUCT_DETAIL */
@@ -183,8 +199,8 @@ form div {
 }
 
 .my-cart {
-  margin: 16px 5px;
-
+  /* display: inline; */
+  margin: 3px 5px;
 }
 
 .cart-product:hover {
@@ -208,4 +224,146 @@ form div {
 .product-review {
   margin: 5px;
   border: solid black 1px;
+}
+
+/* SINGLE_CATEGORY */
+
+.single-category {
+  display: inline-flex;
+  flex-wrap: wrap;
+}
+
+.single-category .single-item {
+  border: solid black 1px;
+  margin: 3px;
+  background-color: lightblue;
+}
+
+.single-category .single-item:hover {
+  box-shadow: 1px 2px 1px grey
+}
+
+.single-category-info h1 {
+  margin: 5px;
+}
+
+.single-category-info p {
+  margin: 5px;
+}
+
+/* CATEGORIES */
+
+.categories {
+  margin: 5px 2px;
+}
+
+.categories h1 {
+  margin: 3px;
+}
+
+.categories a {
+  color: black;
+  background-color: lightblue;
+  height: 25px;
+  width: 350px;
+  font-size: 24px;
+}
+
+.categories a:hover {
+  box-shadow: 2px 2px 1px grey
+}
+
+/* LOGIN_SIGNUP */
+
+.login-signup {
+  background-color: lightblue;
+  color: black;
+  height: 100px;
+}
+
+.login-signup form {
+  display: inline;
+}
+
+.login-signup label {
+  font-size: 16px;
+}
+
+.login-signup input {
+  font-size: 16px;
+}
+
+.login-signup button {
+  font-size: 18px;
+  border-radius: 10px;
+  border: solid black 1px;
+  background-color: rgb(125, 200, 225);
+}
+
+.login-signup button:hover {
+    background-color: rgb(125, 150, 150);
+}
+
+.login-signup a {
+  font-size: 18px;
+  padding: 1.5px 5px;
+  margin: 0 10px;
+  color: black;
+  border: solid black 1px;
+  border-radius: 10px;
+  background-color: rgb(125, 200, 225);
+}
+
+.login-signup a:hover {
+  background-color: rgb(125, 150, 150);
+}
+
+/* HOME_SPLASH */
+
+.home-splash {
+  margin: 10px 0px;
+  height: 90vh;
+  width: 100%;
+  background-color: lightblue;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.home-splash h1 {
+  margin: 0;
+  font-size: 42px;
+  border: 2px solid black;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 5px 5px 5px black;
+  color: black;
+  white-space: pre
+}
+
+/* HOME */
+
+.user-home {
+  background-color: lightblue;
+  height: 500px;
+}
+
+.user-home h2 {
+  padding: 10px;
+  margin: 10px;
+}
+
+/* PLACE_ORDER */
+
+.place-order button {
+  margin: 5px 3px;
+  font-size: 32px;
+  border-radius: 10px;
+  border: solid black 1px;
+  background-color: rgb(125, 200, 225);
+}
+
+
+.place-order button:hover {
+  background-color: rgb(125, 150, 150);
 }
