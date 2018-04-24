@@ -9,14 +9,18 @@ import PlaceOrder from './order';
 export class Cart extends Component {
   componentDidMount() {
     const { getCart } = this.props;
-    getCart()
+    getCart();
   }
 
   increaseQuantity = prod => {
     const { updateCartQuantity } = this.props;
-    if (prod.quantity) prod.quantity++;
-    else prod.quantity = prod.productCart.quantity++;
-    updateCartQuantity(prod);
+    if (prod.quantity && prod.inventory > prod.quantity) {
+      prod.quantity++;
+      updateCartQuantity(prod);
+    } else if (prod.productCart && prod.inventory > prod.productCart.quantity) {
+      prod.quantity = prod.productCart.quantity++;
+      updateCartQuantity(prod);
+    }
   };
 
   decreaseQuantity = prod => {
@@ -37,7 +41,11 @@ export class Cart extends Component {
     return (
       <div>
         <h1 className="my-cart">My Cart</h1>
-        <PlaceOrder products={cart.products[0]} />
+        {userCart.length === 0 ? (
+          <h3>Your cart is empty</h3>
+        ) : (
+          <PlaceOrder products={cart.products[0]} />
+        )}
         {userCart &&
           userCart.map(product => {
             return (
@@ -47,20 +55,19 @@ export class Cart extends Component {
                   {user.id ? (
                     <p>Quantity: {product.productCart.quantity}</p>
                   ) : (
-                      <p>Quantity: {product.quantity}</p>
-                    )}
+                    <p>Quantity: {product.quantity}</p>
+                  )}
                   <button onClick={evt => this.decreaseQuantity(product, evt)}>
                     -1
-                </button>
+                  </button>
                   <button onClick={evt => this.increaseQuantity(product, evt)}>
                     +1
-                </button>
+                  </button>
                   <RemoveFromCart product={product} />
                 </div>
               </div>
             );
           })}
-        {user.id && <PlaceOrder products={cart.products[0]} />}
       </div>
     );
   }
@@ -81,4 +88,4 @@ const mapDispatch = dispatch => {
   };
 };
 
-export default withRouter(connect(mapState, mapDispatch)(Cart));
+export default (connect(mapState, mapDispatch)(Cart));
