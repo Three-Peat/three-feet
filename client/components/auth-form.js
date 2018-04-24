@@ -27,8 +27,8 @@ const AuthForm = (props) => {
       </form>
       <a href="/auth/google">{displayName} with Google</a>
       <div className="home-splash">
-        <h1>3|||FEET </h1>
-        <h4>The one-stop-shop for a third shoe.</h4>
+        <h1> |||FEET </h1>
+        <h3>The one-stop-shop for a third shoe.</h3>
         <img alt="shoe" src='https://image.flaticon.com/icons/svg/358/358423.svg' />
       </div>
     </div>

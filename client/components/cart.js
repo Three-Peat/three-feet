@@ -15,9 +15,13 @@ export class Cart extends Component {
 
   increaseQuantity = prod => {
     const { updateCartQuantity } = this.props;
-    if (prod.quantity) prod.quantity++;
-    else prod.quantity = prod.productCart.quantity++;
-    updateCartQuantity(prod);
+    if (prod.quantity && prod.inventory > prod.quantity) {
+      prod.quantity++;
+      updateCartQuantity(prod);
+    } else if (prod.productCart && prod.inventory > prod.productCart.quantity) {
+      prod.quantity = prod.productCart.quantity++;
+      updateCartQuantity(prod);
+    }
   };
 
   decreaseQuantity = prod => {
@@ -38,7 +42,9 @@ export class Cart extends Component {
     return (
       <div>
         <h1 className="my-cart">My Cart</h1>
-        <PlaceOrder products={cart.products[0]} />
+        {userCart.length === 0 && <h3>Your cart is empty</h3>}
+        {!user.id && userCart.length > 0 && <h3>Please login to complete order</h3>}
+
         {userCart &&
           userCart.map(product => {
             return (
@@ -62,7 +68,7 @@ export class Cart extends Component {
             );
           })}
         {user.id && <AddressInput />}
-        {user.id && <PlaceOrder products={cart.products[0]} />}
+        {user.id &&  userCart.length > 0 && <PlaceOrder products={cart.products[0]} />}
       </div>
     );
   }
@@ -83,4 +89,4 @@ const mapDispatch = dispatch => {
   };
 };
 
-export default withRouter(connect(mapState, mapDispatch)(Cart));
+export default connect(mapState, mapDispatch)(Cart);

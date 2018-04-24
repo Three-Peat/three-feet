@@ -9,46 +9,26 @@ import axios from 'axios'
 /**
  * COMPONENT
  */
-export class AdminOrders extends Component {
+export class UserOrders extends Component {
 
   componentDidMount = () => {
     const { getOrders } = this.props
     getOrders()
   }
 
-  onChange = (event, order) => {
-    const { users } = this.props
-    let { value } = event.target
-    let email;
-    users.find(user => user.id === order.userId) && (email = users.find(user => user.id === order.userId).email)
-    axios.put(`/api/orders/${order.id}`, { status: value, email })
-  }
-
   render() {
     const { allOrders } = this.props.orders
     const { allProducts } = this.props.products
-    const { users } = this.props
+    const { user } = this.props
     return (
-      <div className="admin-orders">
-        {allOrders && allOrders.map(order => {
-          const statuses = [`Created`, `Processing`, `Cancelled`, `Completed`]  
+      <div className="my-orders">
+      <h1>My Orders</h1>
+        {allOrders && allOrders.filter(order => order.userId === user.id).map(order => {
+          console.log(order)
           return (
             <div key={order.id}>
-              <h3>{`Order ${order.id} - ${users.find(user => user.id === order.userId).email}`}</h3>
-              Status: <select onChange={event => this.onChange(event, order)}>
-                {statuses.map(status => {
-                  if (status === order.status) return (
-                    <option selected key={status}>
-                      {status}
-                    </option>
-                  )
-                  else return (
-                    <option key={status}>
-                      {status}
-                    </option>
-                  )
-                })}
-              </select>
+              <h3>{`Order ${order.id}`}</h3>
+              Status: {order.status}
               {order.orderItems && order.orderItems.map(item => {
                 const itemName = allProducts.find(product => product.id === item.productId)
                 return (
@@ -72,8 +52,8 @@ export class AdminOrders extends Component {
 }
 
 const mapState = state => {
-  const { orders, products, users } = state;
-  return { orders, products, users };
+  const { orders, products, users, user } = state;
+  return { orders, products, users, user };
 };
 
 const mapDispatch = dispatch => {
@@ -84,7 +64,7 @@ const mapDispatch = dispatch => {
   }
 };
 
-export default connect(mapState, mapDispatch)(AdminOrders);
+export default connect(mapState, mapDispatch)(UserOrders);
 
 /**
  * PROP TYPES
