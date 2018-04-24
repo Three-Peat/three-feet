@@ -11,7 +11,8 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin }) => (
         isAdmin ? (
           <div>
             {/* The navbar will show these links after you log in if you are an admin */}
-            <Link id="title" to="/home">3|||FEET </Link>
+            <Link id="title" to="/home"> |||FEET </Link>
+            <Link to="/orders">Orders</Link>
             <Link to="/products">Shoes</Link>
             <Link to="/categories">Categories</Link>
             <Link to="/cart">My Cart</Link>
@@ -23,7 +24,8 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin }) => (
         ) : (
             <div>
               {/* The navbar will show these links after you log in */}
-              <Link id="title" to="/home">3|||FEET </Link>
+              <Link id="title" to="/home"> |||FEET </Link>
+              <Link to="/orders">Orders</Link>
               <Link to="/products">Shoes</Link>
               <Link to="/categories">Categories</Link>
               <Link to="/cart">My Cart</Link>
@@ -35,7 +37,7 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin }) => (
       ) : (
           <div>
             {/* The navbar will show these links before you log in */}
-            <Link id="title" to="/">3|||FEET </Link>
+            <Link id="title" to="/"> |||FEET </Link>
             <Link to="/products">Shoes</Link>
             <Link to="/categories">Categories</Link>
             <Link to="/cart">My Cart</Link>

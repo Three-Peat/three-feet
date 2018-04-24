@@ -31,7 +31,7 @@ export class AdminOrders extends Component {
     return (
       <div>
         {allOrders && allOrders.map(order => {
-          const statuses = [`Created`, `Processing`, `Cancelled`, `Completed`]
+          const statuses = [`Created`, `Processing`, `Cancelled`, `Completed`]  
           return (
             <div key={order.id}>
               <h3>{`Order ${order.id} - ${users.find(user => user.id === order.userId).email}`}</h3>

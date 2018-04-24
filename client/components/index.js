@@ -20,3 +20,4 @@ export { default as AdminUsers } from './admin-users';
 export { default as AdminOrders } from './admin-orders';
 export { default as PasswordReset } from './password-reset';
 export { default as AfterOrder } from './after-order';
+export { default as UserOrders } from './user-orders';

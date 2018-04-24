@@ -108,6 +108,7 @@ form div {
   box-shadow: 3px 3px 2px black;
   font-size: 24px;
   font-weight: 1000;
+  white-space: pre
 }
 
 .navbar nav {
@@ -255,6 +256,9 @@ form div {
 
 .categories {
   margin: 5px 2px;
+  display: inline-flex;
+  flex-direction: column;
+  height: 300px;
 }
 
 .categories h1 {
@@ -266,7 +270,7 @@ form div {
   background-color: lightblue;
   height: 25px;
   width: 350px;
-  font-size: 24px;
+  font-size: 18px;
 }
 
 .categories a:hover {
@@ -345,12 +349,20 @@ form div {
 
 .user-home {
   background-color: lightblue;
-  height: 500px;
+  height: 90vh;
+  width: 100%;
+  margin: 5px;
+  padding: 10px;
 }
 
 .user-home h2 {
-  padding: 10px;
   margin: 10px;
+  
+}
+
+.user-home h3 {
+  margin: 30px 10px 20px;
+  
 }
 
 /* PLACE_ORDER */
@@ -366,4 +378,14 @@ form div {
 
 .place-order button:hover {
   background-color: rgb(125, 150, 150);
+}
+
+/* MY ORDERS */
+
+.my-orders {
+    margin: 5px
+}
+
+.my-orders h1 {
+    margin: 15px 3px;
 }
