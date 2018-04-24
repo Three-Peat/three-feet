@@ -26,13 +26,13 @@ router.post('/', (req, res, next) => {
   const userId = req.session.passport.user;
   let orderedItems = req.body.cart;
   let { addressId } = req.body;
-
   return Order.create({
     userId,
     addressId,
   })
     .then(order => {
       const orderId = order.dataValues.id;
+      sendEmail(req.user.email, orderId, `Created`)
       orderedItems = orderedItems.map(item => {
         return {
           productId: item.id,

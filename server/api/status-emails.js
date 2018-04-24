@@ -13,6 +13,13 @@ const sendEmail = (email, orderId, status) => {
   });
 
   // setup email data with unicode symbols
+  let created = {
+    from: '"ThreeFeetTeam" `threefeetfullstack@gmail.com', // sender address
+    to: email, // list of receivers
+    subject: `Order #${orderId} - Purchased`, // Subject line
+    text: `Hey ${email}! Thanks for placing order ${orderId}. We'll get right on it.`, // plain text body
+    // html: '<b>Hello world?</b>' // html body
+  };
   let processing = {
     from: '"ThreeFeetTeam" `threefeetfullstack@gmail.com', // sender address
     to: email, // list of receivers
@@ -38,6 +45,7 @@ const sendEmail = (email, orderId, status) => {
   };
 
   const actions = {
+    Created: created,
     Processing: processing,
     Completed: shipped,
     Cancelled: cancelled
