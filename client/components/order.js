@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 const PlaceOrder = props => {
   const handleSubmit = event => {
     event.preventDefault();
-
+    console.log(event.target);
     const { createOrder, clearCart, purchase } = props;
     const shoeList = props.products.products;
     createOrder(shoeList);
@@ -36,7 +36,7 @@ const mapDispatch = dispatch => {
       dispatch(buildOrder(products));
     },
     purchase: cart => {
-      dispatch(purchaseCart(cart))
+      dispatch(purchaseCart(cart));
     },
     clearCart: () => {
       dispatch(emptyCart());

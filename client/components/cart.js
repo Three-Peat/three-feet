@@ -5,11 +5,12 @@ import { Link, withRouter } from 'react-router-dom';
 import RemoveFromCart from './remove-from-cart';
 import SingleProduct from './single-product';
 import PlaceOrder from './order';
+import AddressInput from './address-input';
 
 export class Cart extends Component {
   componentDidMount() {
     const { getCart } = this.props;
-    getCart()
+    getCart();
   }
 
   increaseQuantity = prod => {
@@ -47,19 +48,20 @@ export class Cart extends Component {
                   {user.id ? (
                     <p>Quantity: {product.productCart.quantity}</p>
                   ) : (
-                      <p>Quantity: {product.quantity}</p>
-                    )}
+                    <p>Quantity: {product.quantity}</p>
+                  )}
                   <button onClick={evt => this.decreaseQuantity(product, evt)}>
                     -1
-                </button>
+                  </button>
                   <button onClick={evt => this.increaseQuantity(product, evt)}>
                     +1
-                </button>
+                  </button>
                   <RemoveFromCart product={product} />
                 </div>
               </div>
             );
           })}
+        {user.id && <AddressInput />}
         {user.id && <PlaceOrder products={cart.products[0]} />}
       </div>
     );
