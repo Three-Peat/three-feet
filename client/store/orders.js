@@ -44,8 +44,8 @@ export const buildOrder = cart => dispatch => {
   axios
     .post(`/api/orders/`, cart)
     .then(res => {
-      dispatch(createOrder(res.data || defaultState))
-      history.push('/home')
+      dispatch(createOrder(res.data || defaultState));
+      history.push('/after-order');
     })
     .then(() => dispatch(purchaseCart()))
     .catch(err => console.error(err));
