@@ -41,11 +41,10 @@ export class Cart extends Component {
     return (
       <div>
         <h1 className="my-cart">My Cart</h1>
-        {userCart.length === 0 ? (
-          <h3>Your cart is empty</h3>
-        ) : (
-          <PlaceOrder products={cart.products[0]} />
-        )}
+        {userCart.length === 0 && <h3>Your cart is empty</h3>}
+        {user.id &&  userCart.length > 0 && <PlaceOrder products={cart.products[0]} />}
+        {!user.id && userCart.length > 0 && <h3>Please login to complete order</h3>}
+
         {userCart &&
           userCart.map(product => {
             return (
@@ -88,4 +87,4 @@ const mapDispatch = dispatch => {
   };
 };
 
-export default (connect(mapState, mapDispatch)(Cart));
+export default connect(mapState, mapDispatch)(Cart);
