@@ -35,7 +35,7 @@ export class Cart extends Component {
     let userCart;
     if (user.id && cart.products[0]) {
       userCart = cart.products[0].products;
-    } else {
+    } else if(Object.entries(cart.products)){
       userCart = [...Object.values(cart.products)];
     }
     return (

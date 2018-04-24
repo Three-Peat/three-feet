@@ -33,13 +33,12 @@ export const auth = (email, password, method) =>
   dispatch =>
     axios.post(`/auth/${method}`, { email, password })
       .then(res => {
-        dispatch(fetchCart())
         dispatch(getUser(res.data))
         history.push('/home')
-
       }, authError => { // rare example: a good use case for parallel (non-catch) error handler
         dispatch(getUser({error: authError}))
       })
+      .then(fetchCart())
       .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))
 
 
