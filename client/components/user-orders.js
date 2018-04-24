@@ -24,9 +24,10 @@ export class UserOrders extends Component {
       <div className="my-orders">
       <h1>My Orders</h1>
         {allOrders && allOrders.filter(order => order.userId === user.id).map(order => {
+          console.log(order)
           return (
             <div key={order.id}>
-              <h3>{`Order ${order.id} - ${user.email}`}</h3>
+              <h3>{`Order ${order.id}`}</h3>
               Status: {order.status}
               {order.orderItems && order.orderItems.map(item => {
                 const itemName = allProducts.find(product => product.id === item.productId)
@@ -38,6 +39,10 @@ export class UserOrders extends Component {
                   </Link>
                 )
               })}
+              <p>Shipped to:</p>
+              <p>{order.address && order.address.name}</p>
+              <p>{order.address && order.address.street}</p>
+              <p>{order.address && `${order.address.city}, ${order.address.state}  ${order.address.zip} `}</p>
             </div>
           )
         })}

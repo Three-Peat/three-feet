@@ -29,7 +29,7 @@ export class AdminOrders extends Component {
     const { allProducts } = this.props.products
     const { users } = this.props
     return (
-      <div>
+      <div className="admin-orders">
         {allOrders && allOrders.map(order => {
           const statuses = [`Created`, `Processing`, `Cancelled`, `Completed`]  
           return (
@@ -59,6 +59,10 @@ export class AdminOrders extends Component {
                   </Link>
                 )
               })}
+              <p>Shipped to:</p>
+              <p>{order.address && order.address.name}</p>
+              <p>{order.address && order.address.street}</p>
+              <p>{order.address && `${order.address.city}, ${order.address.state}  ${order.address.zip} `}</p>
             </div>
           )
         })}
