@@ -68,8 +68,8 @@ export class Cart extends Component {
   }
 }
 const mapState = state => {
-  const { cart, user } = state;
-  return { cart, user };
+  const { cart, user, address } = state;
+  return { cart, user, address };
 };
 
 const mapDispatch = dispatch => {

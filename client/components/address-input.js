@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { createAddress } from '../store/address';
 
 class AddressInput extends Component {
   constructor() {
@@ -10,19 +12,24 @@ class AddressInput extends Component {
       state: '',
       zip: '',
     };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(event) {
     let { name, value } = event.target;
-    this.setState({ [name]: value });
+    this.setState({ [name]: value.toUpperCase() });
   }
 
-  handleSubmit(event) {}
+  handleSubmit(event) {
+    event.preventDefault();
+    this.props.postAddress(this.state);
+  }
 
   render() {
     return (
-      <div name="address-form">
-        <form>
+      <div>
+        <form name="address-form" onSubmit={this.handleSubmit}>
           Name:<input type="text" name="name" onChange={this.handleChange} />
           <br />
           Street:<input
@@ -37,10 +44,27 @@ class AddressInput extends Component {
           <br />
           Zip:<input type="text" name="zip" onChange={this.handleChange} />
           <br />
+          <button type="submit">Update Address</button>
         </form>
       </div>
     );
   }
 }
 
-export default AddressInput;
+const mapState = state => {
+  return {
+    shoes: state.products,
+    user: state.user,
+    cart: state.cart,
+  };
+};
+
+const mapDispatch = dispatch => {
+  return {
+    postAddress: address => {
+      dispatch(createAddress(address));
+    },
+  };
+};
+
+export default connect(mapState, mapDispatch)(AddressInput);

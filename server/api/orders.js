@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { Product, Review, OrderItem, Order } = require('../db/models');
-const sendEmail = require('./status-emails')
+const sendEmail = require('./status-emails');
 
 module.exports = router;
 
@@ -8,7 +8,7 @@ router.get('/', (req, res, next) => {
   Order.findAll({
     include: {
       model: OrderItem,
-    }
+    },
   })
     .then(orders => res.json(orders))
     .catch(next);
@@ -26,9 +26,12 @@ router.get('/:orderId', (req, res, next) => {
 
 router.post('/', (req, res, next) => {
   const userId = req.session.passport.user;
-  let orderedItems = req.body;
+  let orderedItems = req.body.cart;
+  let { addressId } = req.body;
+
   return Order.create({
-    userId: userId,
+    userId,
+    addressId,
   })
     .then(order => {
       const orderId = order.dataValues.id;
@@ -52,16 +55,19 @@ router.post('/', (req, res, next) => {
 });
 
 router.put('/:orderId', (req, res, next) => {
-  const id = req.params.orderId
-  const { status, email } = req.body
-  sendEmail(email, id, status)
-  Order.update({ status }, {
-    where: {
-      id
+  const id = req.params.orderId;
+  const { status, email } = req.body;
+  sendEmail(email, id, status);
+  Order.update(
+    { status },
+    {
+      where: {
+        id,
+      },
     }
-  })
+  )
     .then(orders => {
       res.json(orders);
     })
     .catch(next);
-})
+});
