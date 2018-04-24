@@ -14,9 +14,13 @@ export class Cart extends Component {
 
   increaseQuantity = prod => {
     const { updateCartQuantity } = this.props;
-    if (prod.quantity) prod.quantity++;
-    else prod.quantity = prod.productCart.quantity++;
-    updateCartQuantity(prod);
+    if (prod.quantity && prod.inventory > prod.quantity) {
+      prod.quantity++;
+      updateCartQuantity(prod);
+    } else if (prod.inventory > prod.productCart.quantity) {
+      prod.quantity = prod.productCart.quantity++;
+      updateCartQuantity(prod);
+    }
   };
 
   decreaseQuantity = prod => {
@@ -84,4 +88,4 @@ const mapDispatch = dispatch => {
   };
 };
 
-export default withRouter(connect(mapState, mapDispatch)(Cart));
+export default (connect(mapState, mapDispatch)(Cart));
