@@ -47,7 +47,7 @@ router.put('/', (req, res, next) => {
         },
       })
         .then(cart => {
-          if (cart !== null) cart.increment('quantity');
+          if (cart !== null && cart.quantity < req.body.max) cart.increment('quantity');
         })
         .then(cart => res.json(cart))
         .catch(next),
@@ -59,7 +59,7 @@ router.put('/', (req, res, next) => {
         req.session.cart[productId] = req.body;
         req.session.cart[productId].quantity = 1;
         res.json(req.session.cart);
-      } else {
+      } else if (req.session.cart[productId].quantity < req.body.inventory){
         req.session.cart[productId].quantity++;
         res.json(req.session.cart);
       }

@@ -4,17 +4,18 @@ import { connect } from 'react-redux';
 
 class AddToCart extends Component {
   handleAddToCart = () => {
-    const { addProductToCart, cart, user, getCart } = this.props;
+    const { addProductToCart, cart, user, product } = this.props;
     const selectedId = this.props.product.id;
-
     if (user.id && cart.products[0] !== undefined) {
       const cartId = cart.products[0].id;
       addProductToCart({
         productId: selectedId,
         cartId: cartId,
+        max: product.inventory
       });
-    } else {
-      const { product } = this.props;
+    } else if (cart.products[selectedId] && cart.products[selectedId].quantity < product.inventory){
+      addProductToCart(product);
+    } else if (!cart.products[selectedId]) {
       addProductToCart(product);
     }
   };
