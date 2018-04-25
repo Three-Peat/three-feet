@@ -34,7 +34,7 @@ export class AdminOrders extends Component {
           const statuses = [`Created`, `Processing`, `Cancelled`, `Completed`]  
           return (
             <div key={order.id}>
-              <h3>{`Order ${order.id} - ${users.find(user => user.id === order.userId).email}`}</h3>
+              <h3>{users.find(user => user.id === order.userId) && `Order ${order.id} - ${users.find(user => user.id === order.userId).email}`}</h3>
               Status: <select onChange={event => this.onChange(event, order)}>
                 {statuses.map(status => {
                   if (status === order.status) return (
